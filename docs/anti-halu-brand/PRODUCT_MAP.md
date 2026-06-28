@@ -42,7 +42,7 @@
 ## Current Roadmap
 
 1. ✅ Homepage: janji, bukan collection
-2. ⬜ Share viral: emotionalCore as hook
+2. ✅ Share viral: emotionalCore as hook
 3. ✅ History walau analysis gagal
 4. ⬜ Domain prompt config terpisah
 5. ⬜ Tiny eval log (completion rate, selected fork, answer length)
