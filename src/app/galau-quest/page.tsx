@@ -120,9 +120,9 @@ const config: ForkQuestConfig = {
     "Pertanyaan terakhir yang bakal ngubah segalanya",
   ],
 
-  completionTitle: "PERSONAL QUEST COMPLETED!",
+  completionTitle: "PERJALANAN SELESAI!",
   completionMessage:
-    "Lo udah journey dari surface complaint sampai ke core consciousness.",
+    "Lo udah jalan dari keluhan awal sampai nemu pola yang lebih dalam.",
   completionEmoji: "🏆",
   finalQuote: '"Satu menjadi banyak, untuk selalu mengingat satu"',
 

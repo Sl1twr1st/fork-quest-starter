@@ -1264,11 +1264,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
               {completionMessage}
             </p>
 
-            <ShareButtons
-              shareText={shareText}
-              twitterText={twitterText}
-            />
-
             {/* ── AI Journey Analysis ── */}
             {analyzeJourney && (
               <>
@@ -1479,6 +1474,11 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
               </>
             )}
 
+            <ShareButtons
+              shareText={shareText}
+              twitterText={twitterText}
+            />
+
             <p
               style={{
                 fontSize: "14px",
@@ -1504,42 +1504,43 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         />
       )}
 
-      {/* ── Journey Summary (completed) ── */}
+      {/* ── Journey Recap (completed) ── */}
       {phase === "completed" && showFinalBoss && (
-        <div style={{ marginTop: "32px" }}>
+        <div style={{ marginTop: "32px", maxWidth: "600px", margin: "32px auto 0 auto" }}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "16px",
+              marginBottom: "12px",
             }}
           >
             <h4
               style={{
-                fontSize: "14px",
-                fontWeight: 500,
-                color: "#6b7280",
+                fontSize: "15px",
+                fontWeight: 600,
+                color: "#374151",
                 margin: "0",
               }}
             >
-              Journey so far:
+              📝 Perjalanan Lo
             </h4>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(shareText);
-                alert("Journey summary copied! 📋");
+                alert("Perjalanan lo udah di-copy! 📋");
               }}
               style={{
-                padding: "4px 8px",
+                padding: "6px 12px",
                 border: "1px solid #d1d5db",
                 background: "white",
-                borderRadius: "4px",
+                borderRadius: "6px",
                 fontSize: "12px",
                 cursor: "pointer",
+                color: "#6b7280",
               }}
             >
-              📋 Copy Summary
+              📋 Copy Full Journey
             </button>
           </div>
           <JourneySummary
@@ -1550,28 +1551,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
             showFinalBoss={true}
             color={accentColor}
           />
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "16px",
-              padding: "16px",
-              background:
-                "linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)",
-              borderRadius: "8px",
-              border: "2px solid #f59e0b",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "14px",
-                color: "#ea580c",
-                fontWeight: 500,
-                margin: "0",
-              }}
-            >
-              🏆 Quest Completed - Ready to share your consciousness journey!
-            </p>
-          </div>
         </div>
       )}
 
