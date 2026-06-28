@@ -32,14 +32,14 @@ npm install
 npm run dev        # → http://localhost:4000
 ```
 
-### AI Mode ("Kawan Bertanya")
+### AI Mode ("Kawan Anti Halu" — persona: Kawan Bertanya)
 
 Bikin `.env.local`:
 ```
 ANTHROPIC_API_KEY=sk-ant-xxx
 ```
 
-Galau Quest udah di-enable AI mode. Setiap lo main ulang, pertanyaannya beda — AI-generated, bukan hardcoded. Di akhir, AI analisis seluruh perjalanan lo.
+Galau Quest & Investasi Quest udah di-enable AI mode. Pertanyaan AI-generated, bukan hardcoded. Di akhir, AI analisis seluruh perjalanan lo.
 
 Tanpa API key, tetep jalan — fallback ke static config.
 
@@ -53,7 +53,7 @@ src/
 │   ├── fork-quest-types.ts   ← Interface engine
 │   └── ai/
 │       ├── types.ts          ← Interface AI
-│       └── prompts.ts        ← Persona "Kawan Bertanya"
+│       └── prompts.ts        ← Persona "Kawan Bertanya" (brand: Kawan Anti Halu)
 ├── components/
 │   └── ForkQuestEngine.tsx   ← Engine utama (fork + linear mode)
 ├── app/

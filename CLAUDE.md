@@ -1,7 +1,7 @@
-# Fork Quest Starter
+# Fork Quest Starter — Kawan Anti Halu
 
-> **Fork Quest = mesin pertanyaan bercabang untuk membongkar motif.**
-> Format, bukan produk. Primitive yang bisa dipakai di project lain.
+> **Kawan Anti Halu = teman yang bantu lo misahin mana fakta, mana cerita yang lo bela.**
+> Persona: Kawan Bertanya. Brand: Kawan Anti Halu. Primitive yang bisa dipakai di project lain.
 
 ## Arsitektur
 
@@ -12,7 +12,7 @@ src/
 │   ├── history.ts            ← localStorage persistence: Riwayat Perjalanan
 │   ├── ai/
 │   │   ├── types.ts          ← Interface AI: GenerateForksInput, JourneyAnalysis
-│   │   └── prompts.ts        ← Prompt template "Kawan Bertanya" (persona Claude)
+│   │   └── prompts.ts        ← Prompt persona "Kawan Bertanya" (brand: Kawan Anti Halu)
 │   └── utils.ts              ← cn() helper (Tailwind merge)
 ├── components/
 │   ├── ForkQuestEngine.tsx   ← Engine utama. Handle dua mode: fork & linear
@@ -21,7 +21,7 @@ src/
 ├── app/
 │   ├── page.tsx              ← Homepage: grid 5 quest cards
 │   ├── galau-quest/          ← AI mode enabled (aiMode: true, analyzeJourney: true)
-│   ├── berkshire-quest/      ← Kawan Bertanya Edisi Investasi (AI mode enabled)
+│   ├── berkshire-quest/      ← Kawan Anti Halu: Edisi Investasi (AI mode enabled)
 │   ├── rebahan-quest/        ← Linear mode
 │   ├── indonesia-quest/      ← Fork mode, 8 tema
 │   ├── literasi-quest/       ← Fork mode, 8 tema
@@ -40,7 +40,7 @@ User dapat 3 pertanyaan cabang per level. Pilih satu, jawab, lanjut level beriku
 User dapat 1 pertanyaan per level. Jawab, lanjut. Gak ada branching.
 Cocok untuk flow yang lebih santai (Rebahan).
 
-## AI Mode — "Kawan Bertanya"
+## AI Mode — "Kawan Anti Halu" (persona: Kawan Bertanya)
 
 Enable dengan menambah `aiMode: true` dan `analyzeJourney: true` di config.
 
@@ -85,7 +85,7 @@ Setiap journey yang selesai (termasuk AI analysis) otomatis disimpan ke localSto
 
 ## Prompt persona
 
-Kawan Bertanya adalah "teman yang cukup peduli untuk bertanya hal-hal yang orang lain hindari."
+Persona AI adalah "Kawan Bertanya" — teman yang cukup peduli untuk bertanya hal-hal yang orang lain hindari. Brand produk: Kawan Anti Halu.
 - Bahasa Indonesia sehari-hari (lo/gue), santai tapi tajam
 - Gak menggurui, gak ngasih solusi — cuma bertanya
 - Progresif deepening: surface → pattern → identity → shadow → final boss
@@ -99,7 +99,7 @@ Kawan Bertanya adalah "teman yang cukup peduli untuk bertanya hal-hal yang orang
 - Gunakan bahasa tentative: "kayaknya", "mungkin", "jangan-jangan", "coba perhatiin"
 - Bukan terapi, bukan diagnosis, bukan janji transformasi instan
 
-## Pola "Investasi Sebagai Percakapan"
+## Pola "Edisi Investasi" (Kawan Anti Halu)
 
 Edisi Investasi (Berkshire Quest) fokus ke **agency**, bukan return:
 - Target: hubungan psikologis user dengan uang, risiko, waktu, status, kontrol, legacy
@@ -125,12 +125,13 @@ npm run build
 ## Product Direction (PM Galak Roadmap)
 
 ### Positioning
-Fork Quest = **format interogasi reflektif bercabang** (branching self-interrogation engine).
-Bukan "AI nanya 5 pertanyaan." Tapi: entry rasa/tema → pilih angle → jawab → pertanyaan makin personal → final reflection → shareable artifact → history.
+Kawan Anti Halu = **format interogasi reflektif bercabang**.
+Janji: "Ngetes cerita yang lo percaya, pelan-pelan." Anti halu bukan anti mimpi.
+Flow: entry rasa/tema → pilih angle → jawab → pertanyaan makin personal → final reflection → shareable artifact → history.
 
 ### 2 Flagship
-1. **Kawan Bertanya: Galau** — broad emotional hook
-2. **Kawan Bertanya: Investasi** — high-stakes identity/agency hook
+1. **Edisi Galau** — broad emotional hook
+2. **Edisi Investasi** — high-stakes identity/agency hook
 
 ### Roadmap (urut)
 1. Rapikan homepage: bukan "collection", tapi janji — "5 pertanyaan buat ngebongkar motif lo"
@@ -156,8 +157,8 @@ Bukan "AI nanya 5 pertanyaan." Tapi: entry rasa/tema → pilih angle → jawab �
 ## Filosofi
 
 Fork Quest adalah **primitive** — bentuk dasar yang bisa dipakai berkali-kali:
-- **Kawan Bertanya Edisi Investasi** (Berkshire Quest) = Fork Quest untuk hubungan psikologis dengan uang, risiko, dan agency
-- **Kawan Bertanya Edisi Galau** (Galau Quest) = Fork Quest untuk membongkar keluhan emosional
+- **Edisi Investasi** (Berkshire Quest) = Kawan Anti Halu untuk hubungan psikologis dengan uang, risiko, dan agency
+- **Edisi Galau** (Galau Quest) = Kawan Anti Halu untuk membongkar keluhan emosional
 - Satpam Wallet = Fork Quest untuk keputusan investasi (coming soon)
 - Ruang Interogasi = Fork Quest yang lebih galak dan berbasis verdict
 - Void Saga = Fork Quest untuk karakter fiksi

@@ -1,5 +1,5 @@
 // ============================================
-// AI Kawan Bertanya — types
+// AI Kawan Anti Halu — types (persona: Kawan Bertanya)
 // ============================================
 
 import type { JourneyStep } from "@/lib/fork-quest-types";

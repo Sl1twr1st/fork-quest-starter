@@ -17,7 +17,7 @@ const config: ForkQuestConfig = {
   finalBossDotColor: "#6366f1",
   levelHeaderBg: "#ffffff",
   logoBubbleColor: "#6366f1",
-  logoLabel: "Kawan Bertanya?",
+  logoLabel: "Kawan Anti Halu?",
 
   entry: {
     type: "direct-input",
@@ -119,7 +119,7 @@ const config: ForkQuestConfig = {
     "Pertanyaan terakhir yang bakal ngubah segalanya",
   ],
 
-  completionTitle: "Ini yang Kawan Bertanya tangkap",
+  completionTitle: "Ini yang Kawan tangkap",
   completionMessage:
     "Lo udah jalan dari keluhan awal sampai nemu pola yang lebih dalam.",
   completionEmoji: "🪞",
@@ -127,7 +127,7 @@ const config: ForkQuestConfig = {
 
   generateShareText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🪞 Kawan Bertanya\n\nGua mulai dari "${ctx.entryValue}" dan ngobrol 5 pertanyaan makin dalem:\n\n`;
+    let text = `🪞 Kawan Anti Halu\n\nGua mulai dari "${ctx.entryValue}" dan ngobrol 5 pertanyaan makin dalem:\n\n`;
     ctx.steps.forEach((s) => {
       text += `${s.question}\n`;
       if (s.answer) text += `↳ ${s.answer}\n`;
@@ -140,12 +140,12 @@ const config: ForkQuestConfig = {
 
   generateTwitterText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🪞 Ngobrol sama Kawan Bertanya. Mulai dari "${ctx.entryValue}" — ternyata dalem.\n\n`;
-    text += `${url}\n#KawanBertanya`;
+    let text = `🪞 Ngobrol sama Kawan Anti Halu. Mulai dari "${ctx.entryValue}" — ternyata dalem.\n\n`;
+    text += `${url}\n#KawanAntiHalu`;
     return text;
   },
 
-  // ── AI Kawan Bertanya ──
+  // ── AI Kawan Anti Halu ──
   aiMode: true,
   analyzeJourney: true,
 

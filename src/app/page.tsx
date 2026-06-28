@@ -13,45 +13,55 @@ export default function ForkQuestHomepage() {
 
         {/* ── Hero ── */}
         <div style={{ textAlign: "center", padding: "80px 0 48px 0" }}>
-          <p
-            style={{
-              fontSize: "13px",
-              fontWeight: 500,
-              color: "#6366f1",
-              letterSpacing: "1px",
-              textTransform: "uppercase",
-              margin: "0 0 16px 0",
-            }}
-          >
-            Kawan Bertanya
-          </p>
           <h1
             style={{
-              fontSize: "36px",
+              fontSize: "40px",
               fontWeight: 700,
               color: "#1f2937",
-              lineHeight: "1.35",
-              margin: "0 0 16px 0",
+              lineHeight: "1.2",
+              margin: "0 0 8px 0",
               letterSpacing: "-0.5px",
             }}
           >
-            Pilih satu hal yang lo hindari.
-            <br />
-            Jawab 5 pertanyaan.
-            <br />
-            Lihat motif yang lo bela.
+            Kawan Anti Halu
           </h1>
           <p
             style={{
-              fontSize: "16px",
-              color: "#6b7280",
+              fontSize: "14px",
+              color: "#9ca3af",
+              margin: "0 0 32px 0",
+              lineHeight: "1.5",
+            }}
+          >
+            Ngetes cerita yang lo percaya, pelan-pelan.
+          </p>
+          <p
+            style={{
+              fontSize: "18px",
+              fontWeight: 500,
+              color: "#374151",
               lineHeight: "1.6",
-              maxWidth: "480px",
+              maxWidth: "500px",
+              margin: "0 auto 16px auto",
+            }}
+          >
+            Pilih satu cerita yang lo percaya.
+            <br />
+            Jawab 5 pertanyaan.
+            <br />
+            Lihat mana fakta, mana pembelaan diri.
+          </p>
+          <p
+            style={{
+              fontSize: "13px",
+              color: "#9ca3af",
+              lineHeight: "1.5",
+              maxWidth: "420px",
               margin: "0 auto 40px auto",
             }}
           >
-            Bukan terapi. Bukan nasihat. Teman yang cukup peduli buat nanya
-            hal-hal yang orang lain hindari — dalam bahasa lo sendiri.
+            Anti halu bukan anti mimpi. Cuma berani ngecek: ini insight
+            beneran, atau alasan yang lo poles?
           </p>
         </div>
 
@@ -283,10 +293,10 @@ export default function ForkQuestHomepage() {
           }}
         >
           <p style={{ fontSize: "13px", color: "#6b7280", margin: "0 0 8px 0" }}>
-            Kawan Bertanya — format interogasi reflektif bercabang.
+            Kawan Anti Halu — format interogasi reflektif bercabang.
           </p>
           <p style={{ fontSize: "12px", color: "#d1d5db", margin: "0" }}>
-            Bukan terapi. Bukan nasihat. Cermin yang susah dibohongi.
+            Anti halu bukan anti mimpi. Cermin yang susah lo bohongi.
           </p>
         </div>
       </div>

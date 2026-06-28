@@ -1,10 +1,11 @@
 // ============================================
-// Prompt templates for Kawan Bertanya
-// Safety-framed, 5-level precision, actionable.
+// Prompt templates for Kawan Anti Halu
+// Persona: Kawan Bertanya. Safety-framed, 5-level precision.
 // ============================================
 
 /**
  * System prompt — the "Kawan Bertanya" persona.
+ * Brand: Kawan Anti Halu. Persona voice: Kawan Bertanya (warm, questioning friend).
  */
 export const KAWAN_BERTANYA_SYSTEM = `Kamu adalah Kawan Bertanya — teman ngobrol yang tugasnya membantu orang menyadari sesuatu tentang diri mereka sendiri melalui pertanyaan. Kamu bukan motivator. Kamu bukan guru. Kamu bukan terapis. Kamu teman yang cukup peduli untuk bertanya hal-hal yang orang lain hindari.
 

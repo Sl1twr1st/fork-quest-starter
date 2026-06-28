@@ -17,7 +17,7 @@ const config: ForkQuestConfig = {
   finalBossDotColor: "#6366f1",
   levelHeaderBg: "#ffffff",
   logoBubbleColor: "#6366f1",
-  logoLabel: "Kawan Bertanya?",
+  logoLabel: "Kawan Anti Halu?",
 
   entry: {
     type: "theme-grid",
@@ -140,7 +140,7 @@ const config: ForkQuestConfig = {
     "Kalau uang bukan pembelaan identitas",
   ],
 
-  completionTitle: "Yang Kawan Bertanya tangkap",
+  completionTitle: "Yang Kawan tangkap",
   completionMessage:
     "Lo baru aja ngeliat investasi bukan cuma soal return — tapi cara lo bernegosiasi dengan takut, waktu, status, dan tanggung jawab. Gak ada kesimpulan di sini. Cuma lo yang bisa lanjutin obrolan ini.",
   completionEmoji: "🪞",
@@ -148,25 +148,25 @@ const config: ForkQuestConfig = {
 
   generateShareText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🪞 Kawan Bertanya — Edisi Investasi\n\nGua mulai dari "${ctx.entryValue}" dan ngobrol 5 pertanyaan makin dalem:\n\n`;
+    let text = `🪞 Kawan Anti Halu — Edisi Investasi\n\nGua mulai dari "${ctx.entryValue}" dan ngobrol 5 pertanyaan makin dalem:\n\n`;
     ctx.steps.forEach((s) => {
       text += `${s.question}\n`;
       if (s.answer) text += `↳ ${s.answer}\n`;
       text += `\n`;
     });
     if (ctx.finalAnswer) text += `Jawaban terakhir: ${ctx.finalAnswer}\n\n`;
-    text += `Coba sendiri: ${url}\n\n#KawanBertanya`;
+    text += `Coba sendiri: ${url}\n\n#KawanAntiHalu`;
     return text;
   },
 
   generateTwitterText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🪞 Ngobrol investasi sama Kawan Bertanya. Mulai dari "${ctx.entryValue}" — ternyata bukan cuma soal duit.\n\n`;
-    text += `${url}\n#KawanBertanya`;
+    let text = `🪞 Ngobrol investasi sama Kawan Anti Halu. Mulai dari "${ctx.entryValue}" — ternyata bukan cuma soal duit.\n\n`;
+    text += `${url}\n#KawanAntiHalu`;
     return text;
   },
 
-  // ── AI Kawan Bertanya ──
+  // ── AI Kawan Anti Halu ──
   aiMode: true,
   analyzeJourney: true,
 
