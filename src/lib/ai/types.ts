@@ -39,4 +39,6 @@ export interface JourneyAnalysis {
   reflection: string;
   /** Optional: forks the AI thinks should've been asked */
   missedQuestions?: string[];
+  /** One small, realistic action to take in the next 24 hours */
+  smallStep24h?: string;
 }

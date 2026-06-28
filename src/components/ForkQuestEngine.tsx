@@ -726,6 +726,23 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
       {/* ── ENTRY PHASE ── */}
       {phase === "entry" && (
         <>
+          {aiMode && (
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "12px",
+                color: "#9ca3af",
+                marginBottom: "24px",
+                maxWidth: "500px",
+                margin: "0 auto 24px auto",
+                lineHeight: "1.5",
+              }}
+            >
+              Ini bukan terapi atau diagnosis. Sebuah ruang refleksi
+              pribadi lewat pertanyaan. Kalau lo lagi dalam kondisi
+              berat, ngobrol sama orang terpercaya atau profesional.
+            </p>
+          )}
           {entry.type === "direct-input" && (
             <>
               {entry.presets && entry.presets.length > 0 && (
@@ -1407,6 +1424,56 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                           ))}
                         </div>
                       )}
+
+                    {journeyAnalysis.smallStep24h && (
+                      <div
+                        style={{
+                          padding: "14px",
+                          background:
+                            "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)",
+                          borderRadius: "8px",
+                          border: "2px solid #10b981",
+                          textAlign: "center",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 700,
+                            color: "#059669",
+                            margin: "0 0 6px 0",
+                            letterSpacing: "0.5px",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          🌱 Langkah Kecil 24 Jam
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: 600,
+                            color: "#065f46",
+                            margin: "0",
+                          }}
+                        >
+                          {journeyAnalysis.smallStep24h}
+                        </p>
+                      </div>
+                    )}
+
+                    <p
+                      style={{
+                        fontSize: "11px",
+                        color: "#9ca3af",
+                        marginTop: "16px",
+                        margin: "16px 0 0 0",
+                        textAlign: "center",
+                      }}
+                    >
+                      Ini bukan terapi atau diagnosis. Ini ruang refleksi.
+                      Kalau lo lagi dalam kondisi berat atau krisis, ngobrol
+                      sama orang terpercaya atau profesional.
+                    </p>
                   </div>
                 )}
               </>

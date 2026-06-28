@@ -57,6 +57,7 @@ export async function POST(request: Request) {
       emotionalCore: parsed.emotionalCore ?? "",
       reflection: parsed.reflection ?? "",
       missedQuestions: parsed.missedQuestions ?? [],
+      smallStep24h: parsed.smallStep24h ?? "",
     });
   } catch (error) {
     console.error("analyze-journey error:", error);
