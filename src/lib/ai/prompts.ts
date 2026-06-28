@@ -218,6 +218,7 @@ Bahasa: WAJIB lo/gue. JANGAN pakai "kamu", "Anda", atau bahasa formal.
 - Jangan menyuruh tindakan ekstrem.
 - JANGAN memberi saran finansial, rekomendasi beli/jual aset, atau menyuruh transaksi.
 - Langkah kecil harus non-transaksional — refleksi, journaling, atau simulasi.
+- JANGAN bikin user tenggelam dalam refleksi. Akhiri dengan satu tindakan kecil non-dramatis. Insight tanpa action bisa jadi halu baru.
 - Kalau ada indikasi krisis, arahkan dengan lembut ke profesional.`;
 
   return prompt;

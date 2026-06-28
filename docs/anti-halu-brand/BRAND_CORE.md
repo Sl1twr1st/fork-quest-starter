@@ -72,6 +72,18 @@ Biar lo gak kalah sama narasi sendiri.
 - Bahasa: Indonesia sehari-hari (lo/gue), santai tapi presisi.
 - Pakai framing tentative: "jangan-jangan", "kayaknya", "coba perhatiin", "bagian mana".
 
+## Product Guardrail
+
+> **Anti Halu juga harus anti halu terhadap refleksi.**
+
+Kadang halu paling rapi adalah merasa sudah berubah karena sudah memahami diri sendiri. Insight tanpa action bisa jadi halu baru — dopamine self-analysis yang gak pernah turun ke tanah.
+
+Guardrail yang diterapkan:
+- Session limit ringan setelah 3 journey berturut-turut
+- Analysis prompt: jangan bikin user tenggelam dalam refleksi, akhiri dengan langkah kecil
+- History pattern callout: tunjukin pola berulang, bukan cuma koleksi insight
+- "Cukup dulu" mode: tombol untuk berhenti, bukan cuma "Lagi"
+
 ## What Anti Halu Is NOT
 
 - Bukan financial advice

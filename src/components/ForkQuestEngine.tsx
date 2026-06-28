@@ -691,6 +691,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   const [history, setHistory] = useState<SavedJourney[]>([]);
   const [expandedJourneyId, setExpandedJourneyId] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
+  const [sessionCount, setSessionCount] = useState(0);
 
   const totalLevels = levels.length;
 
@@ -851,6 +852,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         analysis,
       });
       setHistory((prev) => [saved, ...prev]);
+      setSessionCount((c) => c + 1);
     } catch (err) {
       console.error("Journey analysis failed:", err);
       setAnalysisError(true);
@@ -862,6 +864,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         analysis: null,
       });
       setHistory((prev) => [saved, ...prev]);
+      setSessionCount((c) => c + 1);
     } finally {
       setIsAnalyzing(false);
     }
@@ -1221,6 +1224,30 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                   </div>
                 ))}
               </div>
+
+              {/* ── Cukup dulu nudge ── */}
+              {sessionCount >= 3 && (
+                <div
+                  style={{
+                    textAlign: "center",
+                    marginTop: "20px",
+                    padding: "12px 16px",
+                    background: "#fefce8",
+                    border: "1px solid #fde68a",
+                    borderRadius: "8px",
+                    maxWidth: "420px",
+                    margin: "20px auto 0 auto",
+                  }}
+                >
+                  <p style={{ fontSize: "12px", color: "#92400e", margin: "0 0 4px 0", fontWeight: 500 }}>
+                    Lo udah {sessionCount} kali ngobrol hari ini.
+                  </p>
+                  <p style={{ fontSize: "11px", color: "#a16207", margin: "0" }}>
+                    Kadang halu paling rapi adalah merasa sudah berubah karena sudah memahami diri sendiri.
+                    Insight yang gak dibawa hidup bisa jadi tontonan juga.
+                  </p>
+                </div>
+              )}
 
               {/* ── History hint ── */}
               {history.length > 0 && (
@@ -1877,23 +1904,49 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         </div>
       )}
 
-      {/* ── Reset (only after completion) ── */}
+      {/* ── Completion actions ── */}
       {phase === "completed" && (
         <div style={{ textAlign: "center", marginTop: "40px" }}>
-          <button
-            onClick={reset}
+          <p
             style={{
-              padding: "10px 20px",
-              border: "1px solid #d1d5db",
-              background: "white",
-              color: "#6b7280",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontSize: "14px",
+              fontSize: "12px",
+              color: "#9ca3af",
+              margin: "0 0 8px 0",
             }}
           >
-            Mulai dari awal
-          </button>
+            Insight tanpa action bisa jadi halu baru.
+          </p>
+          <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+            <button
+              onClick={reset}
+              style={{
+                padding: "10px 20px",
+                border: "1px solid #6366f1",
+                background: "white",
+                color: "#6366f1",
+                borderRadius: "8px",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontWeight: 500,
+              }}
+            >
+              Ngetes narasi lain
+            </button>
+            <button
+              onClick={() => (window.location.href = backToUrl)}
+              style={{
+                padding: "10px 20px",
+                border: "1px solid #d1d5db",
+                background: "white",
+                color: "#6b7280",
+                borderRadius: "8px",
+                cursor: "pointer",
+                fontSize: "14px",
+              }}
+            >
+              Cukup dulu
+            </button>
+          </div>
         </div>
       )}
     </div>
