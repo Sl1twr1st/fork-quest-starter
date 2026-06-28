@@ -743,7 +743,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
 
     // Try AI if enabled
     if (aiMode) {
-      setLoadingMessage("Kawan Bertanya mikir... 🧠");
+      setLoadingMessage("Kawan lagi mikir... 🧠");
       try {
         const res = await fetch("/api/generate-forks", {
           method: "POST",
@@ -1539,7 +1539,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                         margin: "0 0 8px 0",
                       }}
                     >
-                      🧠 Kawan Bertanya lagi baca perjalanan lo...
+                      🧠 Kawan lagi baca perjalanan lo...
                     </p>
                     <p
                       style={{
