@@ -122,6 +122,37 @@ npm run dev      # → http://localhost:4000
 npm run build
 ```
 
+## Product Direction (PM Galak Roadmap)
+
+### Positioning
+Fork Quest = **format interogasi reflektif bercabang** (branching self-interrogation engine).
+Bukan "AI nanya 5 pertanyaan." Tapi: entry rasa/tema → pilih angle → jawab → pertanyaan makin personal → final reflection → shareable artifact → history.
+
+### 2 Flagship
+1. **Kawan Bertanya: Galau** — broad emotional hook
+2. **Kawan Bertanya: Investasi** — high-stakes identity/agency hook
+
+### Roadmap (urut)
+1. Rapikan homepage: bukan "collection", tapi janji — "5 pertanyaan buat ngebongkar motif lo"
+2. Share viral loop: emotionalCore jadi headline share, bukan "completed quest"
+3. Simpan journey walau analysis gagal ✅ (done — `517aa1d`)
+4. Pisahkan prompt domain config: global persona + domain safety + domain lens
+5. Tiny eval log lokal: selected theme, forks generated, selected fork, answer length, completion
+6. PM Audit quest (setelah 1-5 solid)
+
+### Blindspot yang harus dijaga
+- Jangan bikin 10 quest lagi sebelum tau mana yang punya retensi
+- Belum ada sharp user — pilih 1 wedge dulu
+- Share butuh hook ("Gua kira masalah gua X, ternyata Y") bukan "coba sendiri"
+- Static benchmark butuh rubric, bukan cuma rasa
+
+### Metrik yang perlu diukur (manual dulu)
+- completion rate per quest
+- pertanyaan mana yang paling dipilih
+- jawaban level berapa paling panjang
+- final reflection di-copy atau tidak
+- user balik lihat history atau tidak
+
 ## Filosofi
 
 Fork Quest adalah **primitive** — bentuk dasar yang bisa dipakai berkali-kali:

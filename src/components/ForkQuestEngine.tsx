@@ -799,20 +799,23 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     if (!analyzeJourney) return;
     setIsAnalyzing(true);
     setAnalysisError(false);
+
+    // Build journey steps — scoped outside try so catch can save to history
+    const effectiveResponses = latestResponses ?? responses;
+    const journey: JourneyStep[] = [];
+    for (let i = 0; i < selectedForks.length; i++) {
+      journey.push({
+        question: selectedForks[i],
+        answer: effectiveResponses[i] ?? "",
+      });
+    }
+    // Include final answer — prefer latestAnswer over stale state
+    const finalAnswer = latestAnswer ?? currentResponse;
+    if (finalAnswer && journey.length > 0) {
+      journey[journey.length - 1].answer = finalAnswer;
+    }
+
     try {
-      const effectiveResponses = latestResponses ?? responses;
-      const journey: JourneyStep[] = [];
-      for (let i = 0; i < selectedForks.length; i++) {
-        journey.push({
-          question: selectedForks[i],
-          answer: effectiveResponses[i] ?? "",
-        });
-      }
-      // Include final answer — prefer latestAnswer over stale state
-      const finalAnswer = latestAnswer ?? currentResponse;
-      if (finalAnswer && journey.length > 0) {
-        journey[journey.length - 1].answer = finalAnswer;
-      }
 
       const res = await fetch("/api/analyze-journey", {
         method: "POST",
@@ -825,17 +828,11 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         }),
       });
 
+      let analysis: JourneyAnalysis | null = null;
+
       if (res.ok) {
-        const analysis: JourneyAnalysis = await res.json();
+        analysis = await res.json();
         setJourneyAnalysis(analysis);
-        // Save to history
-        const saved = addJourney({
-          questTitle: title,
-          entryValue,
-          steps: journey,
-          analysis,
-        });
-        setHistory((prev) => [saved, ...prev]);
       } else {
         console.error(
           "Journey analysis API returned",
@@ -844,9 +841,26 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         );
         setAnalysisError(true);
       }
+
+      // Save to history — always, even if analysis failed
+      const saved = addJourney({
+        questTitle: title,
+        entryValue,
+        steps: journey,
+        analysis,
+      });
+      setHistory((prev) => [saved, ...prev]);
     } catch (err) {
       console.error("Journey analysis failed:", err);
       setAnalysisError(true);
+      // Save journey even on network error
+      const saved = addJourney({
+        questTitle: title,
+        entryValue,
+        steps: journey,
+        analysis: null,
+      });
+      setHistory((prev) => [saved, ...prev]);
     } finally {
       setIsAnalyzing(false);
     }
