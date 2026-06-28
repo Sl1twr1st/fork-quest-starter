@@ -3,6 +3,24 @@
 > **Kawan Anti Halu = teman yang bantu lo misahin mana fakta, mana cerita yang lo bela.**
 > Persona: Kawan Bertanya. Brand: Kawan Anti Halu. Primitive yang bisa dipakai di project lain.
 
+## Brand Context
+
+Project ini adalah **Kawan Anti Halu**, bagian *reflective companion* dari brand payung **Anti Halu**.
+Brand source of truth: `docs/anti-halu-brand/`
+
+### Aturan sebelum mengubah
+Sebelum mengubah positioning, homepage copy, prompt persona, share copy, atau membuat quest baru, **WAJIB** baca:
+- [`docs/anti-halu-brand/BRAND_CORE.md`](docs/anti-halu-brand/BRAND_CORE.md) — shared enemy, brand promise, manifesto, tone
+- [`docs/anti-halu-brand/BRAND_ARCHITECTURE.md`](docs/anti-halu-brand/BRAND_ARCHITECTURE.md) — Kawan vs Satpam, role boundaries
+
+### Kawan vs Satpam
+- **Kawan** (project ini) **tidak memberi verdict.** Kawan bertanya, memantulkan pola, dan membantu user melihat cerita yang dia bela. Output: pertanyaan, refleksi, langkah kecil.
+- **Satpam** (project sibling `satpam-wallet`) adalah decision gatekeeper. Satpam memverifikasi klaim, mengecek bukti, dan memberi verdict: JALAN / TAHAN / JANGAN.
+- **Jangan mencampur role.** Kawan tidak menyuruh tindakan spesifik. Satpam tidak bertanya reflektif.
+
+Voice details: [`docs/anti-halu-brand/VOICE_SYSTEM.md`](docs/anti-halu-brand/VOICE_SYSTEM.md)
+Product map & roadmap: [`docs/anti-halu-brand/PRODUCT_MAP.md`](docs/anti-halu-brand/PRODUCT_MAP.md)
+
 ## Arsitektur
 
 ```
