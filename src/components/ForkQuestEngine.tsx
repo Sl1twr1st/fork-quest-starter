@@ -27,6 +27,7 @@ function buildShareContext(
   responses: string[],
   currentResponse: string,
   currentLevel: number,
+  emotionalCore?: string,
 ): ShareContext {
   const steps: JourneyStep[] = [];
   for (let i = 0; i < selectedForks.length; i++) {
@@ -42,7 +43,7 @@ function buildShareContext(
       steps[lastIdx].answer = currentResponse;
     }
   }
-  return { entryValue, steps, finalAnswer: currentResponse };
+  return { entryValue, steps, finalAnswer: currentResponse, emotionalCore };
 }
 
 function buildLinearShareContext(
@@ -922,6 +923,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     responses,
     currentResponse,
     currentLevel,
+    journeyAnalysis?.emotionalCore,
   );
   const shareText = generateShareText(shareCtx);
   const twitterText = generateTwitterText?.(shareCtx);

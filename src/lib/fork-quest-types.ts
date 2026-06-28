@@ -14,6 +14,8 @@ export interface ShareContext {
   steps: JourneyStep[];
   /** The final level answer (level 4 / final boss) */
   finalAnswer: string;
+  /** AI analysis emotional core — the heart of the journey. Used as share hook. */
+  emotionalCore?: string;
 }
 
 export type ShareTextGenerator = (ctx: ShareContext) => string;

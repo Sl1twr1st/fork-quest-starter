@@ -127,21 +127,29 @@ const config: ForkQuestConfig = {
 
   generateShareText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🪞 Kawan Anti Halu\n\nGua mulai dari "${ctx.entryValue}" dan ngobrol 5 pertanyaan makin dalem:\n\n`;
-    ctx.steps.forEach((s) => {
-      text += `${s.question}\n`;
-      if (s.answer) text += `↳ ${s.answer}\n`;
+    const hook = ctx.emotionalCore
+      ? `Yang ketangkep: "${ctx.emotionalCore}"\n\n`
+      : "";
+    let text = `🪞 Kawan Anti Halu\n\nGua kira masalah gua: ${ctx.entryValue}.\n${hook}`;
+    // First Q&A as preview
+    if (ctx.steps.length > 0) {
+      text += `${ctx.steps[0].question}\n`;
+      if (ctx.steps[0].answer) text += `↳ ${ctx.steps[0].answer}\n`;
       text += `\n`;
-    });
-    if (ctx.finalAnswer) text += `Jawaban terakhir: ${ctx.finalAnswer}\n\n`;
-    text += `Coba sendiri: ${url}\n\n#KawanBertanya`;
+    }
+    text += `Coba sendiri: ${url}\n\n#KawanAntiHalu`;
     return text;
   },
 
   generateTwitterText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🪞 Ngobrol sama Kawan Anti Halu. Mulai dari "${ctx.entryValue}" — ternyata dalem.\n\n`;
-    text += `${url}\n#KawanAntiHalu`;
+    const hook = ctx.emotionalCore
+      ? `Yang ketangkep: "${ctx.emotionalCore}"`
+      : `Mulai dari "${ctx.entryValue}" — ternyata dalem.`;
+    let text = `🪞 Gua kira: ${ctx.entryValue}.\n${hook}\n\n${url}\n#KawanAntiHalu`;
+    if (text.length > 280) {
+      text = `🪞 Gua kira: ${ctx.entryValue}.\n${ctx.emotionalCore ? `"${ctx.emotionalCore}"` : "Ternyata dalem."}\n\n${url}\n#KawanAntiHalu`;
+    }
     return text;
   },
 
