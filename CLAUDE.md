@@ -37,7 +37,7 @@ src/
 │   │                           + HistorySection (riwayat perjalanan)
 │   └── ui/                   ← Komponen dasar (Button, Card, Input) — belum dipakai
 ├── app/
-│   ├── page.tsx              ← Homepage: grid 5 quest cards
+│   ├── page.tsx              ← Homepage: 2 flagship cards + secondary explorations
 │   ├── galau-quest/          ← AI mode enabled (aiMode: true, analyzeJourney: true)
 │   ├── berkshire-quest/      ← Kawan Anti Halu: Edisi Investasi (AI mode enabled)
 │   ├── rebahan-quest/        ← Linear mode

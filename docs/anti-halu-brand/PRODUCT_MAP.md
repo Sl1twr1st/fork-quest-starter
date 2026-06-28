@@ -19,9 +19,9 @@
   - Edisi Relationship — attachment & pattern recognition
 
 ### Satpam Anti Halu
-- **Repo:** `satpam-wallet` (planned)
-- **Status:** Not started
-- **Type:** Decision gatekeeper
+- **Repo:** `satpam-wallet`
+- **Status:** Active sibling project
+- **Type:** Decision gatekeeper — local-first behavioral firewall
 - **Planned domains:**
   - Investment decisions (buy/sell gate)
   - Project scope decisions (launch/scope gate)
