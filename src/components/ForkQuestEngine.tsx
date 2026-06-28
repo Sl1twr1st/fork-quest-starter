@@ -435,6 +435,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     bgGradient,
     progressDotColor,
     finalBossDotColor,
+    logoBubbleColor,
     logoLabel,
     entry,
     levels,
@@ -672,7 +673,38 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     >
       {/* ── HEADER ── */}
       {phase === "entry" ? (
-        <div style={{ textAlign: "center", marginBottom: "40px", marginTop: "48px" }}>
+        <>
+          <div style={{ textAlign: "center", marginBottom: "8px", marginTop: "24px" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                background: "white",
+                padding: "6px 16px",
+                borderRadius: "20px",
+                border: "1px solid #e5e7eb",
+              }}
+            >
+              <div
+                style={{
+                  background: logoBubbleColor,
+                  borderRadius: "8px",
+                  padding: "6px 10px",
+                }}
+              >
+                <div style={{ display: "flex", gap: "3px", alignItems: "center" }}>
+                  <div style={{ width: "5px", height: "5px", background: "white", borderRadius: "50%" }} />
+                  <div style={{ width: "5px", height: "5px", background: "white", borderRadius: "50%" }} />
+                  <div style={{ width: "5px", height: "5px", background: "white", borderRadius: "50%" }} />
+                </div>
+              </div>
+              <span style={{ fontSize: "13px", fontWeight: 600, color: "#374151" }}>
+                {logoLabel}
+              </span>
+            </div>
+          </div>
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
             <h1
               style={{
                 fontSize: "36px",
@@ -688,6 +720,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
               {subtitle}
             </p>
           </div>
+        </>
       ) : (
         <div
           style={{

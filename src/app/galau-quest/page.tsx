@@ -6,7 +6,7 @@ import type { ForkQuestConfig, ShareContext } from "@/lib/fork-quest-types";
 const config: ForkQuestConfig = {
   mode: "fork",
 
-  title: "Kawan Ber?",
+  title: "Edisi Galau",
   subtitle:
     "Masukin satu rasa yang lagi ganggu. Kita urai pelan-pelan lewat 5 pertanyaan.",
   accentColor: "#6366f1",
