@@ -435,7 +435,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     bgGradient,
     progressDotColor,
     finalBossDotColor,
-    logoBubbleColor,
     logoLabel,
     entry,
     levels,
@@ -673,9 +672,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     >
       {/* ── HEADER ── */}
       {phase === "entry" ? (
-        <>
-          <LogoHeader label={logoLabel} bubbleColor={logoBubbleColor} />
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <div style={{ textAlign: "center", marginBottom: "40px", marginTop: "48px" }}>
             <h1
               style={{
                 fontSize: "36px",
@@ -691,7 +688,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
               {subtitle}
             </p>
           </div>
-        </>
       ) : (
         <div
           style={{

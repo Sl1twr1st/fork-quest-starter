@@ -6,7 +6,7 @@ import type { ForkQuestConfig, ShareContext } from "@/lib/fork-quest-types";
 const config: ForkQuestConfig = {
   mode: "fork",
 
-  title: "Kawan Bertanya",
+  title: "Kawan Ber?",
   subtitle:
     "Masukin satu rasa yang lagi ganggu. Kita urai pelan-pelan lewat 5 pertanyaan.",
   accentColor: "#6366f1",
@@ -17,7 +17,7 @@ const config: ForkQuestConfig = {
   finalBossDotColor: "#6366f1",
   levelHeaderBg: "#ffffff",
   logoBubbleColor: "#6366f1",
-  logoLabel: "Kawan Bertanya",
+  logoLabel: "Kawan Ber?",
 
   entry: {
     type: "direct-input",
