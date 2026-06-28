@@ -52,9 +52,31 @@ export async function POST(request: Request) {
     const parsed = JSON.parse(jsonMatch[1]);
     const forks: string[] = parsed.forks ?? [];
 
+    // Structured log: fork generation success
+    console.log(
+      JSON.stringify({
+        event: "forks_generated",
+        questType: body.questType,
+        questTitle: body.questTitle,
+        level: body.level,
+        levelName: body.levelName,
+        entryValue: body.entryValue,
+        historyDepth: body.history?.length ?? 0,
+        forkCount: forks.length,
+        timestamp: new Date().toISOString(),
+      }),
+    );
+
     return NextResponse.json({ forks });
   } catch (error) {
     console.error("generate-forks error:", error);
+    console.log(
+      JSON.stringify({
+        event: "forks_failed",
+        error: error instanceof Error ? error.message : "Unknown error",
+        timestamp: new Date().toISOString(),
+      }),
+    );
     return NextResponse.json(
       {
         error: "Failed to generate forks",

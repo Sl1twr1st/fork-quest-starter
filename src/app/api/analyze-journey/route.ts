@@ -120,6 +120,22 @@ export async function POST(request: Request) {
       );
     }
 
+    // Structured log: journey analysis completed
+    console.log(
+      JSON.stringify({
+        event: "journey_analyzed",
+        questType: body.questType,
+        questTitle: body.questTitle,
+        entryValue: body.entryValue,
+        journeyDepth: body.journey?.length ?? 0,
+        answerLengths: body.journey?.map((j) => j.answer?.length ?? 0) ?? [],
+        emotionalCore,
+        patternCount: patterns.length,
+        partial: !textContent.includes("smallStep24h"),
+        timestamp: new Date().toISOString(),
+      }),
+    );
+
     // Return whatever we salvaged — never fail completely
     return NextResponse.json({
       patterns,
