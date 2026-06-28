@@ -497,18 +497,21 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   };
 
   // ── fork generation (AI-first, static-fallback) ──
-  const generateForks = async (level: number) => {
+  // latestResponses overrides state when it hasn't flushed yet
+  const generateForks = async (level: number, latestResponses?: string[]) => {
     setIsLoading(true);
     setPhase("loading");
     setForkSource("static"); // default, will flip if AI succeeds
     setLoadingMessage("Mikir pertanyaan dulu...");
 
     // Build history of previous levels
+    // Use latestResponses if available (state may not have flushed yet)
+    const effectiveResponses = latestResponses ?? responses;
     const history: JourneyStep[] = [];
     for (let i = 0; i < selectedForks.length; i++) {
       history.push({
         question: selectedForks[i],
-        answer: responses[i] ?? "",
+        answer: effectiveResponses[i] ?? "",
       });
     }
 
@@ -564,20 +567,26 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   };
 
   // ── journey analysis ──
-  const runJourneyAnalysis = async () => {
+  // latestResponses + latestAnswer overrides stale state after handleProceed
+  const runJourneyAnalysis = async (
+    latestResponses?: string[],
+    latestAnswer?: string,
+  ) => {
     if (!analyzeJourney) return;
     setIsAnalyzing(true);
     try {
+      const effectiveResponses = latestResponses ?? responses;
       const journey: JourneyStep[] = [];
       for (let i = 0; i < selectedForks.length; i++) {
         journey.push({
           question: selectedForks[i],
-          answer: responses[i] ?? "",
+          answer: effectiveResponses[i] ?? "",
         });
       }
-      // Include final answer
-      if (currentResponse && journey.length > 0) {
-        journey[journey.length - 1].answer = currentResponse;
+      // Include final answer — prefer latestAnswer over stale state
+      const finalAnswer = latestAnswer ?? currentResponse;
+      if (finalAnswer && journey.length > 0) {
+        journey[journey.length - 1].answer = finalAnswer;
       }
 
       const res = await fetch("/api/analyze-journey", {
@@ -618,12 +627,12 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     setResponses(updatedResponses);
 
     if (currentLevel < totalLevels - 1) {
-      generateForks(currentLevel + 1);
+      generateForks(currentLevel + 1, updatedResponses);
     } else {
       setShowFinalBoss(true);
       setPhase("completed");
-      // Trigger AI analysis in background
-      runJourneyAnalysis();
+      // Trigger AI analysis — pass fresh data before state flush
+      runJourneyAnalysis(updatedResponses, currentResponse);
     }
   };
 
