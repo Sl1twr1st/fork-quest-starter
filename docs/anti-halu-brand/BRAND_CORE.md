@@ -63,6 +63,47 @@ Satpam ngetes keputusan di depan lo.
 Biar lo gak kalah sama narasi sendiri.
 ```
 
+## Product Manifesto
+
+```
+Kawan Anti Halu bukan tempat buat tinggal.
+Dia tempat buat berhenti sebentar, ngaca, lalu balik hidup.
+
+Kalau lo datang buat kabur dari tindakan,
+Kawan harus cukup sayang buat bilang: cukup dulu.
+
+Karena halu paling rapi bukan cuma FOMO, gengsi, atau pembenaran.
+Kadang halu paling rapi adalah merasa sudah berubah
+karena sudah memahami diri sendiri.
+```
+
+### Anti-Product Principles
+
+```
+Produk biasa:     "Makin sering makin bagus."
+Kawan Anti Halu:  "Lo udah 4 kali. Cukup dulu. Hidupin satu hal kecil."
+
+Produk biasa:     "AI selalu tau jawabannya."
+Kawan Anti Halu:  "Insight belum kebaca penuh? Jujur aja. Perjalanan lo aman."
+
+Produk biasa:     "Ini kesimpulannya."
+Kawan Anti Halu:  "Ini cerminnya. Lo yang simpulin."
+```
+
+### Growth yang Cocok
+
+Bukan time-on-site.
+Bukan DAU/MAU.
+Bukan streak.
+
+Tapi:
+
+```
+"Gue cuma pakai sebentar, tapi kepikiran seharian."
+```
+
+Produk yang ninggalin bekas, bukan produk yang nahan orang di layar.
+
 ## Tone Principle
 
 - **Tajam di diagnosis, hangat di niat.**
