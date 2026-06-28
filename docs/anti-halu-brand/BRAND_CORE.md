@@ -1,16 +1,24 @@
 # Anti Halu — Brand Core
 
-## What Anti Halu Is
+## Brand Definition (v1)
 
-Anti Halu adalah **payung brand**, bukan satu app.
-Ia adalah alat buat jujur sama diri sendiri sebelum keburu jalan.
+> **Anti Halu adalah alat buat ngetes narasi sebelum jadi keputusan.**
+
+Kawan Anti Halu ngetes narasi lewat pertanyaan reflektif.
+Satpam Anti Halu ngetes narasi lewat gerbang bukti dan verdict.
 
 Anti Halu bukan anti mimpi.
-Musuhnya bukan ambisi, tapi **alasan yang nyamar jadi strategi**.
+Musuhnya bukan ambisi, tapi **narasi yang dipakai buat menghindari kenyataan**.
+
+## Why "Narasi" (Not "Cerita")
+
+- **Narasi** terasa lebih dewasa dan luas. Bisa masuk ke domain personal, finansial, produk, karier, politik, relationship.
+- **Cerita** terasa lebih ringan/fiksi. Narasi punya bobot: ada struktur, ada pembelaan, ada implikasi.
+- "Sebelum jadi keputusan" bikin jelas kenapa ini penting. Bukan sekadar refleksi lucu, tapi ada konsekuensi.
 
 ## Shared Enemy
 
-**"Halu"** = cerita yang kedengeran masuk akal, tapi sebenernya dipakai buat menghindari kenyataan.
+**"Halu"** = narasi yang kedengeran masuk akal, tapi sebenernya dipakai buat menghindari kenyataan.
 
 Halu bisa berupa:
 - Pembenaran yang kedengeran pinter
@@ -21,15 +29,27 @@ Halu bisa berupa:
 
 ## Brand Promise
 
-> **Ngetes cerita sebelum jadi keputusan.**
-> Biar lo gak kalah sama cerita sendiri.
+> **Ngetes narasi sebelum jadi keputusan.**
+> Biar lo gak kalah sama narasi sendiri.
+
+## Tagline
+
+```
+Anti Halu
+Ngetes narasi sebelum jadi keputusan.
+```
+
+Varian spoken:
+```
+Anti Halu
+Biar narasi lo dites dulu sebelum jadi keputusan.
+```
 
 ## Manifesto
 
 ```
-Kita semua punya cerita.
-Sebagian cerita bikin kita jalan.
-Sebagian cerita bikin kita muter di tempat.
+Setiap keputusan punya narasi pembela.
+Anti Halu bantu lo ngetes narasi itu sebelum keburu jadi tindakan.
 
 Anti Halu bukan anti mimpi.
 Anti Halu cuma ngajak lo ngecek:
@@ -37,10 +57,10 @@ ini keyakinan, atau pembenaran?
 ini strategi, atau takut yang pakai jas?
 ini keputusan, atau FOMO yang rapi?
 
-Kawan nemenin lo nanya.
-Satpam nahan lo sebelum nekat.
+Kawan ngetes narasi di kepala lo.
+Satpam ngetes keputusan di depan lo.
 
-Biar lo gak kalah sama cerita sendiri.
+Biar lo gak kalah sama narasi sendiri.
 ```
 
 ## Tone Principle

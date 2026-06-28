@@ -1,6 +1,7 @@
 # Fork Quest Starter — Kawan Anti Halu
 
-> **Kawan Anti Halu = teman yang bantu lo misahin mana fakta, mana cerita yang lo bela.**
+> **Anti Halu = alat buat ngetes narasi sebelum jadi keputusan.**
+> Kawan Anti Halu ngetes narasi lewat pertanyaan reflektif. Satpam Anti Halu ngetes narasi lewat gerbang bukti.
 > Persona: Kawan Bertanya. Brand: Kawan Anti Halu. Primitive yang bisa dipakai di project lain.
 
 ## Brand Context

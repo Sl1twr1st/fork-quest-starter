@@ -42,6 +42,7 @@ Kawan Bertanya adalah teman yang cukup peduli untuk bertanya hal-hal yang orang 
 ### Maxims
 
 ```
+Ngetes narasi, bukan nge-judge orang.
 Bukan terapi. Bukan nasihat. Cermin yang susah dibohongi.
 Tanya, jangan vonis.
 Gali, jangan isi.

@@ -31,7 +31,8 @@
 
 ## Product Principles
 
-1. **Primitive, not product.** Fork Quest adalah format yang bisa dipakai berkali-kali di domain berbeda. Engine tetap, config berubah.
+1. **Ngetes narasi, bukan ngasih solusi.** Anti Halu adalah alat buat ngetes narasi sebelum jadi keputusan. Kawan lewat pertanyaan, Satpam lewat bukti.
+2. **Primitive, not product.** Fork Quest adalah format yang bisa dipakai berkali-kali di domain berbeda. Engine tetap, config berubah.
 2. **Static benchmark, AI-enhanced.** Setiap edisi punya static forks sebagai fallback. AI mode (Claude) di-enable untuk personalisasi.
 3. **History as archive, not social feed.** Journey yang selesai disimpan di localStorage. Bukan untuk share performance — untuk arsip percakapan dengan diri sendiri.
 4. **Share as hook, not trophy.** Share text harus bawa emotional punchline ("Gua kira X, ternyata Y"), bukan "completed quest".

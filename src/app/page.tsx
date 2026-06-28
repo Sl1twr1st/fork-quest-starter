@@ -33,7 +33,7 @@ export default function ForkQuestHomepage() {
               lineHeight: "1.5",
             }}
           >
-            Ngetes cerita yang lo percaya, pelan-pelan.
+            Ngetes narasi sebelum jadi keputusan.
           </p>
           <p
             style={{
@@ -45,7 +45,7 @@ export default function ForkQuestHomepage() {
               margin: "0 auto 16px auto",
             }}
           >
-            Pilih satu cerita yang lo percaya.
+            Pilih satu narasi yang lo percaya.
             <br />
             Jawab 5 pertanyaan.
             <br />
@@ -61,7 +61,7 @@ export default function ForkQuestHomepage() {
             }}
           >
             Anti halu bukan anti mimpi. Cuma berani ngecek: ini insight
-            beneran, atau alasan yang lo poles?
+            beneran, atau narasi yang lo poles?
           </p>
         </div>
 
