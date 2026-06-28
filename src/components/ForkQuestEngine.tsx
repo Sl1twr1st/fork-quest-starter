@@ -1271,8 +1271,10 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                   <div
                     style={{
                       marginBottom: "24px",
-                      padding: "20px",
-                      background: "rgba(255,255,255,0.7)",
+                      padding: "24px 20px",
+                      background:
+                        "linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)",
+                      border: "2px dashed #a855f7",
                       borderRadius: "8px",
                       textAlign: "center",
                     }}
@@ -1281,10 +1283,20 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                       style={{
                         color: "#7c3aed",
                         fontSize: "14px",
-                        margin: "0",
+                        fontWeight: 600,
+                        margin: "0 0 8px 0",
                       }}
                     >
                       🧠 Kawan Bertanya lagi baca perjalanan lo...
+                    </p>
+                    <p
+                      style={{
+                        color: "#a78bfa",
+                        fontSize: "12px",
+                        margin: "0",
+                      }}
+                    >
+                      Sebentar lagi ada insight buat lo...
                     </p>
                   </div>
                 )}
