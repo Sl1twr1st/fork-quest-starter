@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍴 Fork Quest
 
-## Getting Started
+> **Fork Quest = mesin pertanyaan bercabang untuk membongkar motif.**
+>
+> Format, bukan produk. Primitive yang bisa dipakai di project lain.
 
-First, run the development server:
+Orang datang dengan satu rasa / keluhan / tema, lalu sistem ngasih beberapa pertanyaan cabang. Dia pilih satu, jawab, terus pertanyaannya makin dalam. Bukan quiz buat "dapat skor", tapi alat buat **ngajak orang ngobrol sama dirinya sendiri.**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Konsep inti
+
+```
+X Sebagai Percakapan
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Apa pun bisa diubah jadi ruang refleksi:
+- **Galau Sebagai Percakapan** — dari keluhan sehari-hari sampai final boss consciousness
+- **Rebahan Sebagai Percakapan** — ngobrol santai yang bikin nyadar pelan-pelan
+- **Indonesia Sebagai Percakapan** — dari surface nationalism sampai identitas bangsa
+- **Investasi Sebagai Percakapan** — dari kapitalisme sampai "siapa lo tanpa portfolio?"
+- **Literasi Sebagai Percakapan** — dari reading identity sampai beyond the page
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+5 level progressive deepening: **Surface → Pattern → Identity → Shadow → Final Boss.**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Quick Start
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev        # → http://localhost:4000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### AI Mode ("Kawan Bertanya")
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Bikin `.env.local`:
+```
+ANTHROPIC_API_KEY=sk-ant-xxx
+```
 
-## Deploy on Vercel
+Galau Quest udah di-enable AI mode. Setiap lo main ulang, pertanyaannya beda — AI-generated, bukan hardcoded. Di akhir, AI analisis seluruh perjalanan lo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tanpa API key, tetep jalan — fallback ke static config.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Arsitektur
+
+```
+src/
+├── lib/
+│   ├── fork-quest-types.ts   ← Interface engine
+│   └── ai/
+│       ├── types.ts          ← Interface AI
+│       └── prompts.ts        ← Persona "Kawan Bertanya"
+├── components/
+│   └── ForkQuestEngine.tsx   ← Engine utama (fork + linear mode)
+├── app/
+│   ├── page.tsx              ← Homepage
+│   ├── galau-quest/          ← AI mode ✅
+│   ├── rebahan-quest/        ← Linear mode
+│   ├── indonesia-quest/
+│   ├── literasi-quest/
+│   ├── berkshire-quest/
+│   └── api/
+│       ├── generate-forks/   ← POST → Claude
+│       └── analyze-journey/  ← POST → Claude
+```
+
+---
+
+## Cara nambah quest baru
+
+### Fork mode + static config
+```typescript
+const config: ForkQuestConfig = {
+  mode: "fork",
+  title: "FOMO Sebagai Percakapan",
+  entry: { type: "direct-input", presets: ["Gua takut ketinggalan", ...] },
+  levels: [ /* 5 level dengan forks */ ],
+  // ... branding, completion, share
+};
+
+export default function Page() {
+  return <ForkQuestEngine config={config} />;
+}
+```
+
+### Dengan AI
+Tambah dua field:
+```typescript
+aiMode: true,
+analyzeJourney: true,
+```
+Static `levels[].forks` tetap diisi sebagai fallback kalau API gagal.
+
+---
+
+## Engine bisa dipakai di mana aja
+
+Karena ini **primitive**, engine yang sama bisa dipakai untuk:
+- **Satpam Wallet** — Fork Quest untuk keputusan investasi
+- **Ruang Interogasi** — Fork Quest yang lebih galak, berbasis verdict
+- **Void Saga** — Fork Quest untuk membangun karakter fiksi
+- **PM Audit** — Fork Quest untuk mempertanyakan project scope
+
+Satu mesin, banyak kulit.
+
+---
+
+## Tech Stack
+
+- Next.js 15 (App Router)
+- React 19 + TypeScript
+- Claude API (`@anthropic-ai/sdk`)
+- Tailwind CSS (terpasang, belum dipakai — masih inline styles)
+
+---
+
+> *"Fork Quest adalah cara mengubah kebingungan menjadi jalur pertanyaan."*
