@@ -148,6 +148,42 @@ npm run dev      # → http://localhost:4000
 npm run build
 ```
 
+## Deployment (Vercel)
+
+- **Production**: https://fork-quest-starter.vercel.app
+- **GitHub**: https://github.com/Sl1twr1st/fork-quest-starter
+
+### Cara deploy
+
+```bash
+vercel --prod --yes --no-wait
+```
+
+### Environment variables
+
+WAJIB sebelum deploy pertama:
+- `ANTHROPIC_API_KEY` — Claude API key buat `/api/generate-forks` dan `/api/analyze-journey`
+
+### Jebakan yang udah ditemukan
+
+1. **Env var HARUS ada SEBELUM build.** Kalau env var di-set setelah deploy atau pas build lagi jalan, serverless functions gak bakal kebaca. Akibat: API balikin `"ANTHROPIC_API_KEY not set"` dan engine fallback ke static forks.
+
+2. **Jangan upgrade ke Next.js 16.** Next.js 16 (Turbopack) masih unstable di Vercel. Build sukses lokal tapi deployment bisa BLOCKED atau build 0ms tanpa functions. Pake Next.js 15 terbaru aja (`next@15`).
+
+3. **Redeploy dari CLI suka BLOCKED.** Setelah deployment pertama sukses, `vercel --prod` dari CLI sering bikin deployment status "BLOCKED" / "UNKNOWN" — build gak mulai, gak ada log, gak ada error jelas. **Workaround**: redeploy langsung dari dashboard Vercel:
+   - Buka https://vercel.com/sl1twr1sts-projects/fork-quest-starter/deployments
+   - Klik tombol **"Redeploy"** di deployment terbaru
+   - Ini selalu jalan, beda sama CLI yang suka nyangkut
+
+4. **Jangan pakai `vercel project add` buat bikin project.** Project yang dibuat manual gak punya framework preset Next.js — deployment hasilnya build 0ms tanpa serverless functions. Biarin `vercel --prod` yang auto-detect framework.
+
+### Flow deploy yang bener (first time)
+
+1. `vercel --prod --yes --no-wait` — bikin project + deploy (bakal gagal karena belum ada env var)
+2. Buka dashboard → Settings → Environment Variables → tambahin `ANTHROPIC_API_KEY`
+3. Deployments → klik **Redeploy** di deployment terbaru
+4. Selesai. AI jalan.
+
 ## Product Direction (PM Galak Roadmap)
 
 ### Positioning
