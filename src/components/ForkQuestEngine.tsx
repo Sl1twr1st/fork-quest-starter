@@ -437,10 +437,10 @@ function HistorySection({
 }) {
   // Load history on mount
   const [mounted, setMounted] = useState(false);
-  useState(() => {
+  useEffect(() => {
     onRefresh();
     setMounted(true);
-  });
+  }, []);
 
   if (!mounted || history.length === 0) return null;
 
