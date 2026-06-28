@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type {
   QuestConfig,
   ForkQuestConfig,
@@ -9,6 +9,13 @@ import type {
   ShareContext,
 } from "@/lib/fork-quest-types";
 import type { JourneyAnalysis } from "@/lib/ai/types";
+import {
+  addJourney,
+  loadHistory,
+  deleteJourney,
+  formatRelativeTime,
+  type SavedJourney,
+} from "@/lib/history";
 
 // ============================================
 // Internal helpers
@@ -412,6 +419,221 @@ function ShareButtons({
 }
 
 // ============================================
+// Riwayat Perjalanan
+// ============================================
+
+function HistorySection({
+  history,
+  expandedId,
+  onToggle,
+  onDelete,
+  onRefresh,
+}: {
+  history: SavedJourney[];
+  expandedId: string | null;
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
+  onRefresh: () => void;
+}) {
+  // Load history on mount
+  const [mounted, setMounted] = useState(false);
+  useState(() => {
+    onRefresh();
+    setMounted(true);
+  });
+
+  if (!mounted || history.length === 0) return null;
+
+  return (
+    <div style={{ marginBottom: "24px" }}>
+      <p
+        style={{
+          fontSize: "13px",
+          fontWeight: 600,
+          color: "#6b7280",
+          margin: "0 0 12px 0",
+          textAlign: "center",
+        }}
+      >
+        📝 Riwayat Lo ({history.length})
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        {history.slice(0, 5).map((j) => {
+          const isExpanded = expandedId === j.id;
+          return (
+            <div
+              key={j.id}
+              style={{
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                overflow: "hidden",
+                background: "white",
+              }}
+            >
+              <div
+                onClick={() => onToggle(j.id)}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "12px 16px",
+                  cursor: "pointer",
+                  background: isExpanded ? "#f9fafb" : "white",
+                }}
+              >
+                <div style={{ minWidth: 0 }}>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: 500,
+                      color: "#374151",
+                      margin: "0 0 2px 0",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {j.entryValue}
+                  </p>
+                  <p style={{ fontSize: "11px", color: "#9ca3af", margin: 0 }}>
+                    {formatRelativeTime(j.timestamp)} &middot;{" "}
+                    {j.questTitle}
+                  </p>
+                </div>
+                <span style={{ fontSize: "12px", color: "#9ca3af", marginLeft: "8px" }}>
+                  {isExpanded ? "▲" : "▶"}
+                </span>
+              </div>
+              {isExpanded && (
+                <div
+                  style={{
+                    padding: "16px",
+                    borderTop: "1px solid #f3f4f6",
+                    background: "#fafafa",
+                  }}
+                >
+                  {/* Journey steps */}
+                  <div style={{ marginBottom: "12px" }}>
+                    {j.steps.map((step, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          marginBottom: "8px",
+                          fontSize: "12px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "#6b7280",
+                            margin: "0 0 2px 0",
+                            fontWeight: 500,
+                          }}
+                        >
+                          L{i + 1}: {step.question}
+                        </p>
+                        {step.answer && (
+                          <p
+                            style={{
+                              color: "#374151",
+                              margin: "0 0 0 8px",
+                              fontStyle: "italic",
+                            }}
+                          >
+                            ↳ {step.answer}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Analysis summary */}
+                  {j.analysis && (
+                    <div
+                      style={{
+                        padding: "12px",
+                        background: "white",
+                        borderRadius: "6px",
+                        border: "1px solid #e5e7eb",
+                        marginBottom: "12px",
+                      }}
+                    >
+                      {j.analysis.emotionalCore && (
+                        <p
+                          style={{
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            color: "#1f2937",
+                            margin: "0 0 8px 0",
+                            textAlign: "center",
+                          }}
+                        >
+                          &ldquo;{j.analysis.emotionalCore}&rdquo;
+                        </p>
+                      )}
+                      {j.analysis.patterns &&
+                        j.analysis.patterns.length > 0 && (
+                          <div style={{ marginBottom: "4px" }}>
+                            {j.analysis.patterns.map((p, pi) => (
+                              <p
+                                key={pi}
+                                style={{
+                                  fontSize: "11px",
+                                  color: "#6b7280",
+                                  margin: "0 0 4px 0",
+                                }}
+                              >
+                                🔍 {p}
+                              </p>
+                            ))}
+                          </div>
+                        )}
+                      {j.analysis.smallStep24h && (
+                        <p
+                          style={{
+                            fontSize: "11px",
+                            color: "#059669",
+                            margin: "8px 0 0 0",
+                          }}
+                        >
+                          🌱 {j.analysis.smallStep24h}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Delete button */}
+                  <div style={{ textAlign: "right" }}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (window.confirm("Hapus perjalanan ini?")) {
+                          onDelete(j.id);
+                        }
+                      }}
+                      style={{
+                        padding: "4px 10px",
+                        border: "1px solid #fecaca",
+                        background: "white",
+                        color: "#dc2626",
+                        borderRadius: "5px",
+                        fontSize: "11px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      🗑️ Hapus
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ============================================
 // Main Engine
 // ============================================
 
@@ -464,8 +686,17 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   const [journeyAnalysis, setJourneyAnalysis] =
     useState<JourneyAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisError, setAnalysisError] = useState(false);
+  const [history, setHistory] = useState<SavedJourney[]>([]);
+  const [expandedJourneyId, setExpandedJourneyId] = useState<string | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
 
   const totalLevels = levels.length;
+
+  // ── load history on mount ──
+  useEffect(() => {
+    setHistory(loadHistory());
+  }, []);
 
   // ── static fork generation (fallback) ──
   const generateStaticForks = (level: number): string[] => {
@@ -567,6 +798,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   ) => {
     if (!analyzeJourney) return;
     setIsAnalyzing(true);
+    setAnalysisError(false);
     try {
       const effectiveResponses = latestResponses ?? responses;
       const journey: JourneyStep[] = [];
@@ -596,9 +828,25 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
       if (res.ok) {
         const analysis: JourneyAnalysis = await res.json();
         setJourneyAnalysis(analysis);
+        // Save to history
+        const saved = addJourney({
+          questTitle: title,
+          entryValue,
+          steps: journey,
+          analysis,
+        });
+        setHistory((prev) => [saved, ...prev]);
+      } else {
+        console.error(
+          "Journey analysis API returned",
+          res.status,
+          await res.text().catch(() => ""),
+        );
+        setAnalysisError(true);
       }
     } catch (err) {
-      console.warn("Journey analysis failed:", err);
+      console.error("Journey analysis failed:", err);
+      setAnalysisError(true);
     } finally {
       setIsAnalyzing(false);
     }
@@ -646,6 +894,9 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     setPhase("entry");
     setJourneyAnalysis(null);
     setIsAnalyzing(false);
+    setAnalysisError(false);
+    setExpandedJourneyId(null);
+    setShowHistory(false);
   };
 
   const getCurrentForks = (): string[] => forkHistory[currentLevel] ?? [];
@@ -955,6 +1206,54 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                 ))}
               </div>
 
+              {/* ── History hint ── */}
+              {history.length > 0 && (
+                <div style={{ textAlign: "center", marginTop: "20px" }}>
+                  <button
+                    onClick={() => setShowHistory(!showHistory)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#9ca3af",
+                      fontSize: "12px",
+                      cursor: "pointer",
+                      padding: "4px 8px",
+                    }}
+                  >
+                    📝 Lo udah {history.length} kali ngobrol —{" "}
+                    {showHistory ? "sembunyiin" : "liat riwayat"} ▼
+                  </button>
+                  {showHistory && (
+                    <div
+                      style={{
+                        marginTop: "8px",
+                        maxWidth: "500px",
+                        margin: "8px auto 0 auto",
+                      }}
+                    >
+                      <HistorySection
+                        history={history}
+                        expandedId={expandedJourneyId}
+                        onToggle={(id) =>
+                          setExpandedJourneyId(
+                            expandedJourneyId === id ? null : id,
+                          )
+                        }
+                        onDelete={(id) => {
+                          deleteJourney(id);
+                          setHistory((prev) =>
+                            prev.filter((j) => j.id !== id),
+                          );
+                          if (expandedJourneyId === id)
+                            setExpandedJourneyId(null);
+                        }}
+                        onRefresh={() => setHistory(loadHistory())}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div style={{ textAlign: "center", marginTop: "32px" }}>
                 <button
                   onClick={handleStart}
@@ -1231,12 +1530,63 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                     <p
                       style={{
                         color: "#a78bfa",
-                        fontSize: "12px",
+                        fontSize: "18px",
                         margin: "0",
+                        letterSpacing: "2px",
                       }}
                     >
-                      Sebentar lagi ada insight buat lo...
+                      <style>{`
+                        @keyframes dotPulse {
+                          0%, 20% { opacity: 0.2; }
+                          50% { opacity: 1; }
+                          100% { opacity: 0.2; }
+                        }
+                      `}</style>
+                      <span style={{ animation: "dotPulse 1.4s infinite", animationDelay: "0s" }}>.</span>
+                      <span style={{ animation: "dotPulse 1.4s infinite", animationDelay: "0.2s" }}>.</span>
+                      <span style={{ animation: "dotPulse 1.4s infinite", animationDelay: "0.4s" }}>.</span>
                     </p>
+                  </div>
+                )}
+
+                {analysisError && !isAnalyzing && !journeyAnalysis && (
+                  <div
+                    style={{
+                      marginBottom: "24px",
+                      padding: "20px",
+                      background: "#fef2f2",
+                      border: "1px solid #fecaca",
+                      borderRadius: "8px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: "#dc2626",
+                        fontSize: "13px",
+                        fontWeight: 500,
+                        margin: "0 0 8px 0",
+                      }}
+                    >
+                      Gagal ambil insight. Coba refresh halaman?
+                    </p>
+                    <button
+                      onClick={() => {
+                        setAnalysisError(false);
+                        runJourneyAnalysis();
+                      }}
+                      style={{
+                        padding: "6px 14px",
+                        border: "1px solid #fca5a5",
+                        background: "white",
+                        color: "#dc2626",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Coba lagi
+                    </button>
                   </div>
                 )}
 
@@ -1251,18 +1601,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                       padding: "28px",
                     }}
                   >
-                    <p
-                      style={{
-                        fontSize: "12px",
-                        fontWeight: 500,
-                        color: "#9ca3af",
-                        marginBottom: "20px",
-                        textAlign: "center",
-                        margin: "0 0 20px 0",
-                      }}
-                    >
-                      Yang Kawan Bertanya tangkap
-                    </p>
 
                     {journeyAnalysis.emotionalCore && (
                       <div
@@ -1426,6 +1764,23 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
             <ShareButtons
               shareText={shareText}
               twitterText={twitterText}
+            />
+
+            {/* ── Riwayat Perjalanan ── */}
+            <HistorySection
+              history={history}
+              expandedId={expandedJourneyId}
+              onToggle={(id) =>
+                setExpandedJourneyId(
+                  expandedJourneyId === id ? null : id,
+                )
+              }
+              onDelete={(id) => {
+                deleteJourney(id);
+                setHistory((prev) => prev.filter((j) => j.id !== id));
+                if (expandedJourneyId === id) setExpandedJourneyId(null);
+              }}
+              onRefresh={() => setHistory(loadHistory())}
             />
 
             {finalQuote && (

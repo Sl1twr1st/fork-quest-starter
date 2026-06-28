@@ -17,7 +17,7 @@ const config: ForkQuestConfig = {
   finalBossDotColor: "#6366f1",
   levelHeaderBg: "#ffffff",
   logoBubbleColor: "#6366f1",
-  logoLabel: "Kawan Ber?",
+  logoLabel: "Kawan Bertanya?",
 
   entry: {
     type: "direct-input",
