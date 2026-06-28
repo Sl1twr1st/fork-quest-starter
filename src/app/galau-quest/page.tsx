@@ -6,24 +6,23 @@ import type { ForkQuestConfig, ShareContext } from "@/lib/fork-quest-types";
 const config: ForkQuestConfig = {
   mode: "fork",
 
-  title: "🌀 Personal Fork Quest: 5 Levels Deep",
-  subtitle: "Journey dari keluhan surface sampai final boss consciousness",
-  accentColor: "#7c3aed",
-  accentGradient:
-    "linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #ea580c 100%)",
-  bgGradient:
-    "linear-gradient(135deg, #f8fafc 0%, #f3e8ff 50%, #fed7aa 100%)",
-  cardBorderColor: "#a855f7",
-  progressDotColor: "linear-gradient(135deg, #a855f7 0%, #ec4899 100%)",
-  finalBossDotColor: "#ef4444",
-  levelHeaderBg: "linear-gradient(135deg, #e9d5ff 0%, #dbeafe 100%)",
-  logoBubbleColor: "#7c3aed",
-  logoLabel: 'GALAU SEBAGAI "PERCAKAPAN"',
+  title: "Kawan Bertanya",
+  subtitle:
+    "Masukin satu rasa yang lagi ganggu. Kita urai pelan-pelan lewat 5 pertanyaan.",
+  accentColor: "#6366f1",
+  accentGradient: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+  bgGradient: "linear-gradient(180deg, #fafafa 0%, #f5f3ff 100%)",
+  cardBorderColor: "#d4d4d8",
+  progressDotColor: "#6366f1",
+  finalBossDotColor: "#6366f1",
+  levelHeaderBg: "#ffffff",
+  logoBubbleColor: "#6366f1",
+  logoLabel: "Kawan Bertanya",
 
   entry: {
     type: "direct-input",
-    label: "Pilih keluhan umum:",
-    placeholder: "Atau tulis keluhan lo sendiri...",
+    label: "Atau pilih yang umum:",
+    placeholder: "Misal: gua capek, gua takut gagal, gua bingung...",
     presets: [
       "Gua bodoh",
       "Hidup susah",
@@ -36,7 +35,7 @@ const config: ForkQuestConfig = {
 
   levels: [
     {
-      name: "🌱 Level 1: Surface Questions",
+      name: "Pertanyaan 1",
       description: "Mulai mikir ulang tentang keluhan lo",
       forks: {
         bodoh: [
@@ -67,7 +66,7 @@ const config: ForkQuestConfig = {
       },
     },
     {
-      name: "🌿 Level 2: Pattern Recognition",
+      name: "Pertanyaan 2",
       description: "Liat pola-pola yang lo ulang terus",
       forks: {
         default: [
@@ -78,7 +77,7 @@ const config: ForkQuestConfig = {
       },
     },
     {
-      name: "🌳 Level 3: Identity Core",
+      name: "Pertanyaan 3",
       description: "Gali sampai ke inti identitas lo",
       forks: {
         default: [
@@ -89,8 +88,8 @@ const config: ForkQuestConfig = {
       },
     },
     {
-      name: "🔥 Level 4: Shadow Work",
-      description: "Face the shadow yang lo sembunyiin",
+      name: "Pertanyaan 4",
+      description: "Hadapi bagian yang lo sembunyiin",
       forks: {
         default: [
           "Apa yang paling gua takutin tentang jadi versi terbaik gua?",
@@ -100,8 +99,8 @@ const config: ForkQuestConfig = {
       },
     },
     {
-      name: "💀 Level 5: FINAL BOSS",
-      description: "Pertanyaan terakhir yang bakal ngubah segalanya",
+      name: "Pertanyaan 5",
+      description: "Pertanyaan terakhir",
       forks: {
         default: [
           "Kalau semua alasan lo selama ini cuma cerita, siapa lo sebenernya tanpa cerita itu?",
@@ -120,38 +119,29 @@ const config: ForkQuestConfig = {
     "Pertanyaan terakhir yang bakal ngubah segalanya",
   ],
 
-  completionTitle: "PERJALANAN SELESAI!",
+  completionTitle: "Ini yang Kawan Bertanya tangkap",
   completionMessage:
     "Lo udah jalan dari keluhan awal sampai nemu pola yang lebih dalam.",
-  completionEmoji: "🏆",
-  finalQuote: '"Satu menjadi banyak, untuk selalu mengingat satu"',
+  completionEmoji: "🪞",
+  finalQuote: "",
 
   generateShareText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🌀 PERSONAL FORK QUEST COMPLETED! 🌀\n\nGua baru aja journey 5 levels deep dari surface complaint sampai core consciousness:\n\n`;
-    ctx.steps.forEach((s, i) => {
-      text += `L${i + 1}: ${s.question}\n`;
+    let text = `🪞 Kawan Bertanya\n\nGua mulai dari "${ctx.entryValue}" dan ngobrol 5 pertanyaan makin dalem:\n\n`;
+    ctx.steps.forEach((s) => {
+      text += `${s.question}\n`;
       if (s.answer) text += `↳ ${s.answer}\n`;
       text += `\n`;
     });
-    if (ctx.finalAnswer)
-      text += `💀 FINAL BOSS ANSWER:\n${ctx.finalAnswer}\n\n`;
-    text += `"Satu menjadi banyak, untuk selalu mengingat satu"\n\n`;
-    text += `Coba sendiri di: ${url}\n\n#PersonalForkQuest #Consciousness #SelfAwareness`;
+    if (ctx.finalAnswer) text += `Jawaban terakhir: ${ctx.finalAnswer}\n\n`;
+    text += `Coba sendiri: ${url}\n\n#KawanBertanya`;
     return text;
   },
 
   generateTwitterText: (ctx: ShareContext) => {
     const url = "https://fork-quest.com";
-    let text = `🌀 Just completed Personal Fork Quest! Journey dari "${ctx.entryValue}" sampai core consciousness dalam 5 levels.\n\n`;
-    if (ctx.finalAnswer) {
-      const s =
-        ctx.finalAnswer.length > 60
-          ? ctx.finalAnswer.substring(0, 60) + "..."
-          : ctx.finalAnswer;
-      text += `💀 Final insight: "${s}"\n\n`;
-    }
-    text += `${url}\n#PersonalForkQuest #Consciousness`;
+    let text = `🪞 Ngobrol sama Kawan Bertanya. Mulai dari "${ctx.entryValue}" — ternyata dalem.\n\n`;
+    text += `${url}\n#KawanBertanya`;
     return text;
   },
 

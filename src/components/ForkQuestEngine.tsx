@@ -231,7 +231,7 @@ function JourneySummary({
           margin: "0 0 16px 0",
         }}
       >
-        Journey so far:
+        Yang sudah lo jawab:
       </h4>
       {selectedForks.slice(0, visibleCount).map((fork, index) => {
         const answer =
@@ -344,28 +344,29 @@ function ShareButtons({
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
-        gap: "12px",
+        gap: "8px",
         marginBottom: "24px",
+        justifyContent: "center",
+        flexWrap: "wrap",
       }}
     >
       <button
         onClick={() => {
           navigator.clipboard.writeText(shareText);
-          alert("Journey lo udah di-copy! Paste ke WhatsApp/socmed lo 🔥");
+          alert("Udah di-copy! Share ke siapa aja 🪞");
         }}
         style={{
-          width: "100%",
-          padding: "12px",
-          background: "linear-gradient(135deg, #10b981 0%, #3b82f6 100%)",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          fontWeight: 600,
+          padding: "10px 18px",
+          border: "1px solid #d4d4d8",
+          background: "white",
+          color: "#374151",
+          borderRadius: "8px",
+          fontSize: "13px",
+          fontWeight: 500,
           cursor: "pointer",
         }}
       >
-        📋 Copy Journey untuk Share
+        📋 Copy
       </button>
 
       <button
@@ -374,17 +375,17 @@ function ShareButtons({
           window.open(whatsappUrl, "_blank");
         }}
         style={{
-          width: "100%",
-          padding: "12px",
-          background: "linear-gradient(135deg, #059669 0%, #10b981 100%)",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          fontWeight: 600,
+          padding: "10px 18px",
+          border: "1px solid #d4d4d8",
+          background: "white",
+          color: "#374151",
+          borderRadius: "8px",
+          fontSize: "13px",
+          fontWeight: 500,
           cursor: "pointer",
         }}
       >
-        💬 Share ke WhatsApp
+        💬 WhatsApp
       </button>
 
       <button
@@ -394,17 +395,17 @@ function ShareButtons({
           window.open(twitterUrl, "_blank");
         }}
         style={{
-          width: "100%",
-          padding: "12px",
-          background: "linear-gradient(135deg, #3b82f6 0%, #7c3aed 100%)",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          fontWeight: 600,
+          padding: "10px 18px",
+          border: "1px solid #d4d4d8",
+          background: "white",
+          color: "#374151",
+          borderRadius: "8px",
+          fontSize: "13px",
+          fontWeight: 500,
           cursor: "pointer",
         }}
       >
-        🐦 Share ke Twitter
+        🐦 Twitter
       </button>
     </div>
   );
@@ -432,18 +433,14 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     accentColor,
     accentGradient,
     bgGradient,
-    cardBorderColor,
     progressDotColor,
     finalBossDotColor,
-    levelHeaderBg,
     logoBubbleColor,
     logoLabel,
     entry,
     levels,
     levelDescriptions,
     completionTitle,
-    completionMessage,
-    completionEmoji,
     finalQuote,
     generateShareText,
     generateTwitterText,
@@ -461,7 +458,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("");
   const [showFinalBoss, setShowFinalBoss] = useState(false);
-  const [forkSource, setForkSource] = useState<"static" | "ai">("static");
   // "entry" | "loading" | "fork-selection" | "responding" | "completed"
   const [phase, setPhase] = useState<string>("entry");
   // AI journey analysis result
@@ -501,7 +497,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   const generateForks = async (level: number, latestResponses?: string[]) => {
     setIsLoading(true);
     setPhase("loading");
-    setForkSource("static"); // default, will flip if AI succeeds
     setLoadingMessage("Mikir pertanyaan dulu...");
 
     // Build history of previous levels
@@ -540,7 +535,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
             const forks: string[] = data.forks;
             setForkHistory((prev) => [...prev, forks]);
             setCurrentLevel(level);
-            setForkSource("ai");
             setIsLoading(false);
             setCurrentResponse("");
             setPhase("fork-selection");
@@ -559,7 +553,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     const forks = generateStaticForks(level);
     setForkHistory((prev) => [...prev, forks]);
     setCurrentLevel(level);
-    setForkSource("static");
     setIsLoading(false);
     setCurrentResponse("");
     setPhase("fork-selection");
@@ -651,7 +644,6 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     setIsLoading(false);
     setShowFinalBoss(false);
     setPhase("entry");
-    setForkSource("static");
     setJourneyAnalysis(null);
     setIsAnalyzing(false);
   };
@@ -679,49 +671,75 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         minHeight: "100vh",
       }}
     >
-      <LogoHeader label={logoLabel} bubbleColor={logoBubbleColor} />
-
-      {/* Back button */}
-      <div style={{ marginBottom: "24px" }}>
-        <button
-          onClick={() => (window.location.href = backToUrl)}
+      {/* ── HEADER ── */}
+      {phase === "entry" ? (
+        <>
+          <LogoHeader label={logoLabel} bubbleColor={logoBubbleColor} />
+          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+            <h1
+              style={{
+                fontSize: "36px",
+                fontWeight: "bold",
+                marginBottom: "12px",
+                color: "#1f2937",
+                margin: "0 0 12px 0",
+              }}
+            >
+              {title}
+            </h1>
+            <p style={{ color: "#6b7280", fontSize: "16px", margin: "0" }}>
+              {subtitle}
+            </p>
+          </div>
+        </>
+      ) : (
+        <div
           style={{
-            padding: "8px 16px",
-            border: "1px solid #d1d5db",
-            background: "transparent",
-            color: "#6b7280",
-            borderRadius: "6px",
-            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "24px",
           }}
         >
-          ← Back to Collection
-        </button>
-      </div>
+          <button
+            onClick={() => (window.location.href = backToUrl)}
+            style={{
+              padding: "6px 0",
+              border: "none",
+              background: "transparent",
+              color: "#9ca3af",
+              fontSize: "14px",
+              cursor: "pointer",
+            }}
+          >
+            ← {logoLabel}
+          </button>
+          {!showFinalBoss && (
+            <span
+              style={{
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#6b7280",
+              }}
+            >
+              Pertanyaan {currentLevel + 1} dari {totalLevels}
+            </span>
+          )}
+          <div style={{ width: "60px" }} /> {/* spacer for balance */}
+        </div>
+      )}
 
-      {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: "32px" }}>
-        <h1
-          style={{
-            fontSize: "40px",
-            fontWeight: "bold",
-            marginBottom: "8px",
-            background: accentGradient,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          {title}
-        </h1>
-        <p style={{ color: "#6b7280", marginBottom: "16px" }}>{subtitle}</p>
-        {phase !== "entry" && phase !== "completed" && (
+      {/* Progress dots (quest only) */}
+      {phase !== "entry" && phase !== "completed" && (
+        <div style={{ marginBottom: "24px" }}>
           <ProgressDots
             total={totalLevels}
             current={currentLevel}
             color={progressDotColor}
             finalBossColor={finalBossDotColor}
           />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* ── ENTRY PHASE ── */}
       {phase === "entry" && (
@@ -957,154 +975,75 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
       {/* ── FORK SELECTION ── */}
       {phase === "fork-selection" && (
         <div style={{ marginBottom: "32px" }}>
-          {/* Level Header */}
+          {/* Level context */}
           <div
             style={{
               marginBottom: "24px",
-              background:
-                currentLevel === totalLevels - 1
-                  ? "linear-gradient(135deg, #fecaca 0%, #fbb6ce 100%)"
-                  : levelHeaderBg,
-              border: `2px solid ${currentLevel === totalLevels - 1 ? "#f87171" : cardBorderColor}`,
-              borderRadius: "8px",
-              padding: "24px",
               textAlign: "center",
             }}
           >
-            <h2
-              style={{
-                fontSize: "32px",
-                fontWeight: "bold",
-                marginBottom: "8px",
-                color:
-                  currentLevel === totalLevels - 1 ? "#dc2626" : accentColor,
-                margin: "0",
-              }}
-            >
-              {levels[currentLevel].name}
-            </h2>
-            <p style={{ color: "#6b7280", margin: "8px 0 0 0" }}>
-              {levelDescriptions[currentLevel]}
-            </p>
             {currentLevel === 0 && (
               <p
                 style={{
-                  fontSize: "14px",
-                  color: accentColor,
-                  fontWeight: 500,
-                  marginTop: "8px",
-                  margin: "8px 0 0 0",
+                  fontSize: "13px",
+                  color: "#9ca3af",
+                  margin: "0 0 8px 0",
                 }}
               >
-                Origin: &ldquo;{entryValue}&rdquo;
+                Lo mulai dari &ldquo;{entryValue}&rdquo;
               </p>
             )}
+            <p style={{ color: "#6b7280", fontSize: "14px", margin: "0" }}>
+              {levelDescriptions[currentLevel]}
+            </p>
           </div>
 
           {/* Fork options */}
           <div style={{ marginBottom: "24px" }}>
-            <div
+            <h3
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                marginBottom: "16px",
+                fontSize: "16px",
+                fontWeight: 500,
+                color: "#6b7280",
+                marginBottom: "20px",
+                textAlign: "center",
               }}
             >
-              <h3
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 600,
-                  color: "#374151",
-                  margin: "0",
-                }}
-              >
-                Pilih fork untuk dilanjutkan:
-              </h3>
-              {forkSource === "ai" && (
-                <span
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: 600,
-                    background: "linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%)",
-                    color: "white",
-                    padding: "3px 8px",
-                    borderRadius: "12px",
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  AI-GENERATED
-                </span>
-              )}
-            </div>
+              Pilih pertanyaan yang paling ngena:
+            </h3>
             {getCurrentForks().map((fork, index) => (
               <div
                 key={index}
                 onClick={() => handleSelectFork(fork)}
                 style={{
                   cursor: "pointer",
-                  background:
-                    currentLevel === totalLevels - 1
-                      ? "linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%)"
-                      : "white",
-                  border: `2px solid ${currentLevel === totalLevels - 1 ? "#fca5a5" : cardBorderColor}`,
-                  borderLeft: `4px solid ${currentLevel === totalLevels - 1 ? "#ef4444" : accentColor}`,
+                  background: "white",
+                  border: "1px solid #e5e7eb",
+                  borderLeft: "3px solid #6366f1",
                   borderRadius: "8px",
-                  padding: "16px",
-                  marginBottom: "12px",
-                  boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
-                  transition: "all 0.2s",
+                  padding: "16px 20px",
+                  marginBottom: "10px",
+                  transition: "all 0.15s",
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
-                  e.currentTarget.style.background =
-                    currentLevel === totalLevels - 1
-                      ? "linear-gradient(135deg, #fecaca 0%, #fbb6ce 100%)"
-                      : "#f3e8ff";
+                  e.currentTarget.style.background = "#fafafa";
+                  e.currentTarget.style.borderLeftColor = "#4f46e5";
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.boxShadow =
-                    "0 1px 3px 0 rgba(0, 0, 0, 0.1)";
-                  e.currentTarget.style.background =
-                    currentLevel === totalLevels - 1
-                      ? "linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%)"
-                      : "white";
+                  e.currentTarget.style.background = "white";
+                  e.currentTarget.style.borderLeftColor = "#6366f1";
                 }}
               >
-                <div
+                <p
                   style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "12px",
+                    fontSize: "16px",
+                    color: "#374151",
+                    margin: "0",
+                    lineHeight: "1.6",
                   }}
                 >
-                  <span
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "18px",
-                      color:
-                        currentLevel === totalLevels - 1
-                          ? "#ef4444"
-                          : accentColor,
-                    }}
-                  >
-                    {currentLevel === totalLevels - 1 ? "💀" : `${index + 1}.`}
-                  </span>
-                  <p
-                    style={{
-                      fontWeight: 500,
-                      color:
-                        currentLevel === totalLevels - 1
-                          ? "#dc2626"
-                          : "#374151",
-                      margin: "0",
-                    }}
-                  >
-                    {fork}
-                  </p>
-                </div>
+                  {fork}
+                </p>
               </div>
             ))}
           </div>
@@ -1116,77 +1055,54 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         <div>
           <div
             style={{
-              background:
-                currentLevel === totalLevels - 1
-                  ? "linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%)"
-                  : levelHeaderBg,
-              border: `2px solid ${currentLevel === totalLevels - 1 ? "#f87171" : cardBorderColor}`,
+              background: "#ffffff",
+              border: "1px solid #e5e7eb",
               borderRadius: "8px",
               padding: "24px",
-              marginBottom: "16px",
+              marginBottom: "24px",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
             }}
           >
-            <h4
-              style={{
-                fontWeight: 600,
-                marginBottom: "12px",
-                color:
-                  currentLevel === totalLevels - 1 ? "#dc2626" : accentColor,
-                margin: "0 0 12px 0",
-              }}
-            >
-              {currentLevel === totalLevels - 1
-                ? "💀 FINAL BOSS QUESTION:"
-                : "🎯 Fork yang lo pilih:"}
-            </h4>
             <p
               style={{
-                fontStyle: "italic",
                 fontSize: "18px",
-                color:
-                  currentLevel === totalLevels - 1 ? "#dc2626" : "#374151",
-                fontWeight:
-                  currentLevel === totalLevels - 1 ? "bold" : "normal",
+                color: "#1f2937",
+                lineHeight: "1.7",
                 margin: "0",
               }}
             >
-              &ldquo;{selectedForks[currentLevel]}&rdquo;
+              {selectedForks[currentLevel]}
             </p>
           </div>
 
-          <div style={{ marginBottom: "16px" }}>
+          <div style={{ marginBottom: "20px" }}>
             <label
               style={{
                 display: "block",
                 fontSize: "14px",
                 fontWeight: 500,
                 color: "#6b7280",
-                marginBottom: "8px",
+                marginBottom: "10px",
               }}
             >
-              {currentLevel === totalLevels - 1
-                ? "💀 Jawab dengan jujur brutal:"
-                : "Jawab dengan pertanyaan balik:"}
+              Jawab bebas. Gak perlu rapi.
             </label>
-            <input
-              type="text"
-              placeholder={
-                currentLevel === totalLevels - 1
-                  ? "This is it. Jawab sejujur-jujurnya..."
-                  : "Tulis pertanyaan sebagai jawaban..."
-              }
+            <textarea
+              placeholder="Tulis apa yang muncul di kepala lo..."
               value={currentResponse}
               onChange={(e) => setCurrentResponse(e.target.value)}
-              onKeyDown={(e) =>
-                e.key === "Enter" && currentResponse.trim() && handleProceed()
-              }
+              rows={4}
               style={{
                 width: "100%",
-                padding: "12px",
-                fontSize: "18px",
-                border: `2px solid ${currentLevel === totalLevels - 1 ? "#f87171" : cardBorderColor}`,
-                borderRadius: "6px",
+                padding: "14px",
+                fontSize: "16px",
+                border: "1px solid #d4d4d8",
+                borderRadius: "8px",
                 outline: "none",
+                resize: "vertical",
+                fontFamily: "inherit",
+                lineHeight: "1.6",
+                boxSizing: "border-box",
               }}
             />
           </div>
@@ -1196,72 +1112,66 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
               onClick={handleProceed}
               style={{
                 width: "100%",
-                padding: "12px",
-                background: accentGradient,
+                padding: "14px",
+                background: "#1f2937",
                 color: "white",
                 border: "none",
-                borderRadius: "6px",
+                borderRadius: "8px",
                 fontSize: "16px",
                 fontWeight: 500,
                 cursor: "pointer",
               }}
             >
-              Proceed to {levels[currentLevel + 1].name} ➡️
+              Lanjut →
             </button>
           )}
 
           {currentLevel === totalLevels - 1 &&
             currentResponse.trim() &&
             !showFinalBoss && (
-              <div style={{ textAlign: "center" }}>
-                <button
-                  onClick={handleProceed}
-                  style={{
-                    width: "100%",
-                    padding: "16px",
-                    background:
-                      "linear-gradient(135deg, #ef4444 0%, #ec4899 100%)",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "6px",
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                  }}
-                >
-                  💀 COMPLETE FINAL BOSS QUEST 💀
-                </button>
-              </div>
+              <button
+                onClick={handleProceed}
+                style={{
+                  width: "100%",
+                  padding: "14px",
+                  background: "#1f2937",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                }}
+              >
+                Lihat hasilnya
+              </button>
             )}
         </div>
       )}
 
       {/* ── COMPLETED ── */}
       {phase === "completed" && showFinalBoss && (
-        <div style={{ textAlign: "center", padding: "32px 0" }}>
+        <div style={{ padding: "32px 0" }}>
           <div
             style={{
-              background: "linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)",
-              border: "2px solid #f59e0b",
-              borderRadius: "8px",
+              background: "#ffffff",
+              border: "1px solid #e5e7eb",
+              borderRadius: "12px",
               padding: "32px",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
             }}
           >
-            <div style={{ fontSize: "64px", marginBottom: "16px" }}>
-              {completionEmoji}
-            </div>
-            <h3
+            <p
               style={{
-                fontSize: "32px",
-                fontWeight: "bold",
-                color: "#ea580c",
+                fontSize: "13px",
+                fontWeight: 500,
+                color: "#9ca3af",
                 marginBottom: "16px",
+                textAlign: "center",
+                margin: "0 0 16px 0",
               }}
             >
               {completionTitle}
-            </h3>
-            <p style={{ color: "#374151", marginBottom: "24px" }}>
-              {completionMessage}
             </p>
 
             {/* ── AI Journey Analysis ── */}
@@ -1306,41 +1216,39 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                     style={{
                       textAlign: "left",
                       marginBottom: "24px",
-                      background:
-                        "linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)",
-                      border: "2px solid #a855f7",
-                      borderRadius: "8px",
-                      padding: "24px",
+                      background: "#fafafa",
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "12px",
+                      padding: "28px",
                     }}
                   >
-                    <h4
+                    <p
                       style={{
-                        fontSize: "16px",
-                        fontWeight: 700,
-                        color: "#7c3aed",
-                        marginBottom: "16px",
+                        fontSize: "12px",
+                        fontWeight: 500,
+                        color: "#9ca3af",
+                        marginBottom: "20px",
                         textAlign: "center",
+                        margin: "0 0 20px 0",
                       }}
                     >
-                      🧠 Yang Kawan Bertanya Liat dari Perjalanan Lo
-                    </h4>
+                      Yang Kawan Bertanya tangkap
+                    </p>
 
                     {journeyAnalysis.emotionalCore && (
                       <div
                         style={{
-                          marginBottom: "16px",
-                          padding: "12px",
-                          background: "rgba(255,255,255,0.6)",
-                          borderRadius: "6px",
+                          marginBottom: "20px",
+                          padding: "16px 0",
                           textAlign: "center",
                         }}
                       >
                         <p
                           style={{
-                            fontSize: "15px",
+                            fontSize: "20px",
                             fontWeight: 600,
-                            color: "#5b21b6",
-                            fontStyle: "italic",
+                            color: "#1f2937",
+                            lineHeight: "1.5",
                             margin: "0",
                           }}
                         >
@@ -1491,15 +1399,18 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
               twitterText={twitterText}
             />
 
-            <p
-              style={{
-                fontSize: "14px",
-                color: "#ea580c",
-                fontStyle: "italic",
-              }}
-            >
-              {finalQuote}
-            </p>
+            {finalQuote && (
+              <p
+                style={{
+                  fontSize: "13px",
+                  color: "#9ca3af",
+                  fontStyle: "italic",
+                  margin: "0",
+                }}
+              >
+                {finalQuote}
+              </p>
+            )}
           </div>
         </div>
       )}
@@ -1566,21 +1477,22 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         </div>
       )}
 
-      {/* ── Reset ── */}
-      {phase !== "entry" && (
-        <div style={{ textAlign: "center", marginTop: "32px" }}>
+      {/* ── Reset (only after completion) ── */}
+      {phase === "completed" && (
+        <div style={{ textAlign: "center", marginTop: "40px" }}>
           <button
             onClick={reset}
             style={{
-              padding: "8px 16px",
+              padding: "10px 20px",
               border: "1px solid #d1d5db",
-              background: "transparent",
+              background: "white",
               color: "#6b7280",
-              borderRadius: "6px",
+              borderRadius: "8px",
               cursor: "pointer",
+              fontSize: "14px",
             }}
           >
-            🔄 Start New Quest
+            Mulai dari awal
           </button>
         </div>
       )}
