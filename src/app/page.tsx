@@ -39,7 +39,7 @@ export default function ForkQuestHomepage() {
             <br />
             Jawab 5 pertanyaan.
             <br />
-            Lihat motif yang selama ini lo bela.
+            Lihat motif yang lo bela.
           </h1>
           <p
             style={{
@@ -85,7 +85,7 @@ export default function ForkQuestHomepage() {
               e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
             }}
           >
-            <p style={{ fontSize: "28px", margin: "0 0 12px 0" }}>🪞</p>
+            <p style={{ fontSize: "36px", margin: "0 0 12px 0", lineHeight: "1" }}>🪞</p>
             <h3
               style={{
                 fontSize: "18px",
@@ -108,7 +108,7 @@ export default function ForkQuestHomepage() {
               Kita urai pelan-pelan lewat 5 pertanyaan.
             </p>
             <span style={{ fontSize: "13px", fontWeight: 600, color: "#6366f1" }}>
-              Mulai →
+              Mulai pelan-pelan →
             </span>
           </div>
 
@@ -133,7 +133,7 @@ export default function ForkQuestHomepage() {
               e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
             }}
           >
-            <p style={{ fontSize: "28px", margin: "0 0 12px 0" }}>💸</p>
+            <p style={{ fontSize: "36px", margin: "0 0 12px 0", lineHeight: "1" }}>💸</p>
             <h3
               style={{
                 fontSize: "18px",
@@ -152,11 +152,11 @@ export default function ForkQuestHomepage() {
                 margin: "0 0 16px 0",
               }}
             >
-              Investasi bukan cuma soal return — tapi cara lo bernegosiasi dengan
-              takut, status, dan tanggung jawab.
+              Investasi bukan cuma soal return — tapi cara lo menghadapi takut rugi,
+              validasi, dan tanggung jawab.
             </p>
             <span style={{ fontSize: "13px", fontWeight: 600, color: "#6366f1" }}>
-              Mulai →
+              Bongkar motif →
             </span>
           </div>
         </div>
@@ -282,7 +282,7 @@ export default function ForkQuestHomepage() {
             borderTop: "1px solid #e5e7eb",
           }}
         >
-          <p style={{ fontSize: "13px", color: "#9ca3af", margin: "0 0 8px 0" }}>
+          <p style={{ fontSize: "13px", color: "#6b7280", margin: "0 0 8px 0" }}>
             Kawan Bertanya — format interogasi reflektif bercabang.
           </p>
           <p style={{ fontSize: "12px", color: "#d1d5db", margin: "0" }}>
