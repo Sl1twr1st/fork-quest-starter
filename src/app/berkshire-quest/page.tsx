@@ -31,6 +31,10 @@ const config: ForkQuestConfig = {
       "Investor Pintar Identity",
       "Overthinking Sebelum Mulai",
       "Moat, Privilege, dan Luck",
+      "Gaji & Harga Diri",
+      "Utang & Rasa Malu",
+      "Nabung tapi Takut Hidup",
+      "Konsumsi Buat Diakui",
     ],
   },
 
@@ -79,10 +83,30 @@ const config: ForkQuestConfig = {
           "Apa yang lo sebut 'analisa tajam' yang sebenernya cuma privileged starting point?",
           "Lo nyaman disebut pintar, tapi gak nyaman disebut beruntung — kenapa?",
         ],
+        "Gaji & Harga Diri": [
+          "Lo pengen gaji naik karena kebutuhan, atau karena angka itu bukti lo berharga?",
+          "Kalau besok gaji lo gak keliatan di slip tapi tetep ditransfer, apa lo masih seambisius sekarang?",
+          "Siapa lo tanpa angka yang lo sebut 'gaji gue'?",
+        ],
+        "Utang & Rasa Malu": [
+          "Utang mana yang lebih berat: bunganya, atau cerita tentang diri lo karena punya utang?",
+          "Lo lebih malu ngakuin punya utang ke siapa — dan kenapa dia?",
+          "Jangan-jangan lo bayar utang bukan buat bebas, tapi buat hilangin rasa bersalah?",
+        ],
+        "Nabung tapi Takut Hidup": [
+          "Lo nabung buat masa depan, atau buat menghindari rasa bersalah saat menikmati hidup?",
+          "Kapan terakhir lo beli sesuatu buat diri sendiri tanpa mikir 'harusnya ini ditabung'?",
+          "Apa yang lo takutin bakal terjadi kalau tabungan lo berkurang 20%?",
+        ],
+        "Konsumsi Buat Diakui": [
+          "Barang apa yang lo beli bukan karena butuh, tapi karena pengen diri lo terlihat berhasil?",
+          "Lo inget harga barangnya, atau lo inget siapa yang lo pengen notice lo pakai barang itu?",
+          "Jangan-jangan yang lo sebut 'self-reward' sebenernya cuma pengen validasi dari orang lain?",
+        ],
         default: [
           "Apa sebenernya yang lo percaya tentang duit yang gak pernah lo tanyain ulang?",
-          "Dari mana lo belajar bahwa investasi itu harus kayak gini?",
-          "Apa definisi 'sukses investasi' yang lo pegang — dan siapa yang ngasih definisi itu?",
+          "Dari mana lo belajar bahwa uang itu harus dikelola kayak gini?",
+          "Apa definisi 'sehat secara finansial' yang lo pegang — dan siapa yang ngasih definisi itu?",
         ],
       },
     },
