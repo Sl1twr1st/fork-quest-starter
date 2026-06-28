@@ -84,3 +84,53 @@ export function formatRelativeTime(ts: number): string {
   if (days < 30) return `${Math.floor(days / 7)} minggu lalu`;
   return `${Math.floor(days / 30)} bulan lalu`;
 }
+
+// ============================================
+// Daily reflection limit
+// ============================================
+
+const DAILY_COUNT_KEY = "kawan-anti-halu-daily-count";
+const DAILY_LIMIT = 4;
+
+interface DailyCount {
+  date: string; // "YYYY-MM-DD" local
+  count: number;
+}
+
+function getTodayKey(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+export function getDailyCount(): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const raw = window.localStorage.getItem(DAILY_COUNT_KEY);
+    if (!raw) return 0;
+    const data: DailyCount = JSON.parse(raw);
+    if (data.date !== getTodayKey()) return 0;
+    return data.count;
+  } catch {
+    return 0;
+  }
+}
+
+export function incrementDailyCount(): number {
+  if (typeof window === "undefined") return 0;
+  const today = getTodayKey();
+  const current = getDailyCount();
+  const next = current + 1;
+  try {
+    window.localStorage.setItem(
+      DAILY_COUNT_KEY,
+      JSON.stringify({ date: today, count: next }),
+    );
+  } catch {
+    // silently skip
+  }
+  return next;
+}
+
+export function isDailyLimitReached(): boolean {
+  return getDailyCount() >= DAILY_LIMIT;
+}

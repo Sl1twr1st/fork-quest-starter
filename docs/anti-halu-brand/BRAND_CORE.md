@@ -79,10 +79,14 @@ Biar lo gak kalah sama narasi sendiri.
 Kadang halu paling rapi adalah merasa sudah berubah karena sudah memahami diri sendiri. Insight tanpa action bisa jadi halu baru — dopamine self-analysis yang gak pernah turun ke tanah.
 
 Guardrail yang diterapkan:
-- Session limit ringan setelah 3 journey berturut-turut
-- Analysis prompt: jangan bikin user tenggelam dalam refleksi, akhiri dengan langkah kecil
-- History pattern callout: tunjukin pola berulang, bukan cuma koleksi insight
-- "Cukup dulu" mode: tombol untuk berhenti, bukan cuma "Lagi"
+- **Daily reflection limit**: maksimal 4 completed journeys per hari (global, semua edisi). Counter disimpan di localStorage (`kawan-anti-halu-daily-count`).
+  - Journey ke-3: nudge kuning — "Kadang halu paling rapi adalah merasa sudah berubah..."
+  - Journey ke-4 selesai: strong stop — "Cukup dulu hari ini. Pilih satu langkah kecil dari riwayat lo dan lakuin di luar layar."
+  - Entry page diblokir setelah limit. Tombol "Buka riwayat" dan "Cukup dulu" tetap tersedia.
+- **Analysis prompt**: jangan bikin user tenggelam dalam refleksi, akhiri dengan langkah kecil non-dramatis.
+- **Failure mode aman**: AI boleh gagal, tapi perjalanan user tidak boleh hilang. Journey tetap disimpan ke history dengan `analysis: null`. UI tampilkan fallback: "Insight belum kebaca penuh, tapi perjalanan lo aman disimpan."
+- **History pattern callout**: tunjukin pola berulang, bukan cuma koleksi insight.
+- **"Cukup dulu" mode**: tombol untuk berhenti, bukan cuma "Lagi".
 
 ## What Anti Halu Is NOT
 

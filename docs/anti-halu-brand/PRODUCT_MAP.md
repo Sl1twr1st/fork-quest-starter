@@ -45,9 +45,11 @@
 1. ✅ Homepage: janji, bukan collection
 2. ✅ Share viral: emotionalCore as hook
 3. ✅ History walau analysis gagal
-4. ⬜ Domain prompt config terpisah
-5. ⬜ Tiny eval log (completion rate, selected fork, answer length)
-6. ⬜ PM Audit quest (Edisi Project — after 1-5 solid)
+4. ✅ Daily reflection limit (max 4/day, global)
+5. ✅ Analysis failure hardening (defensive JSON parsing, partial fallback)
+6. ⬜ Domain prompt config terpisah
+7. ⬜ Tiny eval log (completion rate, selected fork, answer length)
+8. ⬜ PM Audit quest (Edisi Project — after 1-7 solid)
 
 ---
 

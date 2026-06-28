@@ -14,6 +14,9 @@ import {
   loadHistory,
   deleteJourney,
   formatRelativeTime,
+  getDailyCount,
+  incrementDailyCount,
+  isDailyLimitReached,
   type SavedJourney,
 } from "@/lib/history";
 
@@ -687,17 +690,18 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   const [journeyAnalysis, setJourneyAnalysis] =
     useState<JourneyAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysisError, setAnalysisError] = useState(false);
+  const [analysisPartial, setAnalysisPartial] = useState(false); // soft fallback — analysis incomplete but journey saved
   const [history, setHistory] = useState<SavedJourney[]>([]);
   const [expandedJourneyId, setExpandedJourneyId] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
-  const [sessionCount, setSessionCount] = useState(0);
+  const [dailyCount, setDailyCount] = useState(0);
 
   const totalLevels = levels.length;
 
-  // ── load history on mount ──
+  // ── load history + daily count on mount ──
   useEffect(() => {
     setHistory(loadHistory());
+    setDailyCount(getDailyCount());
   }, []);
 
   // ── static fork generation (fallback) ──
@@ -800,7 +804,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
   ) => {
     if (!analyzeJourney) return;
     setIsAnalyzing(true);
-    setAnalysisError(false);
+    setAnalysisPartial(false);
 
     // Build journey steps — scoped outside try so catch can save to history
     const effectiveResponses = latestResponses ?? responses;
@@ -833,18 +837,23 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
       let analysis: JourneyAnalysis | null = null;
 
       if (res.ok) {
-        analysis = await res.json();
+        const data = await res.json();
+        analysis = data;
         setJourneyAnalysis(analysis);
+        // If response was marked partial, show soft fallback
+        if (data.partial) {
+          setAnalysisPartial(true);
+        }
       } else {
         console.error(
           "Journey analysis API returned",
           res.status,
           await res.text().catch(() => ""),
         );
-        setAnalysisError(true);
+        setAnalysisPartial(true);
       }
 
-      // Save to history — always, even if analysis failed
+      // Save to history — always, even if analysis incomplete
       const saved = addJourney({
         questTitle: title,
         entryValue,
@@ -852,10 +861,11 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         analysis,
       });
       setHistory((prev) => [saved, ...prev]);
-      setSessionCount((c) => c + 1);
+      const newCount = incrementDailyCount();
+      setDailyCount(newCount);
     } catch (err) {
       console.error("Journey analysis failed:", err);
-      setAnalysisError(true);
+      setAnalysisPartial(true);
       // Save journey even on network error
       const saved = addJourney({
         questTitle: title,
@@ -864,7 +874,8 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
         analysis: null,
       });
       setHistory((prev) => [saved, ...prev]);
-      setSessionCount((c) => c + 1);
+      const newCount = incrementDailyCount();
+      setDailyCount(newCount);
     } finally {
       setIsAnalyzing(false);
     }
@@ -912,7 +923,7 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
     setPhase("entry");
     setJourneyAnalysis(null);
     setIsAnalyzing(false);
-    setAnalysisError(false);
+    setAnalysisPartial(false);
     setExpandedJourneyId(null);
     setShowHistory(false);
   };
@@ -1060,6 +1071,92 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
               berat, ngobrol sama orang terpercaya atau profesional.
             </p>
           )}
+
+          {/* ── Daily reflection limit (global across all editions) ── */}
+          {isDailyLimitReached() ? (
+            <div
+              style={{
+                textAlign: "center",
+                padding: "20px",
+                background: "#fef2f2",
+                border: "1px solid #fecaca",
+                borderRadius: "8px",
+                maxWidth: "440px",
+                margin: "0 auto 24px auto",
+              }}
+            >
+              <p style={{ fontSize: "14px", fontWeight: 600, color: "#991b1b", margin: "0 0 8px 0" }}>
+                Cukup dulu hari ini
+              </p>
+              <p style={{ fontSize: "12px", color: "#b91c1c", margin: "0 0 16px 0", lineHeight: "1.5" }}>
+                Lo udah 4 kali ngobrol hari ini. Insight bisa mulai terasa seperti
+                progress, padahal hidup lo belum ikut bergerak. Tutup dulu. Pilih
+                satu langkah kecil dari riwayat lo dan lakuin di luar layar. Kawan
+                nunggu besok.
+              </p>
+              <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
+                <button
+                  onClick={() => setShowHistory(true)}
+                  style={{
+                    padding: "8px 16px",
+                    border: "1px solid #d1d5db",
+                    background: "white",
+                    color: "#374151",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                  }}
+                >
+                  📝 Buka riwayat
+                </button>
+                <button
+                  onClick={() => (window.location.href = backToUrl)}
+                  style={{
+                    padding: "8px 16px",
+                    border: "1px solid #d1d5db",
+                    background: "white",
+                    color: "#6b7280",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                  }}
+                >
+                  Cukup dulu
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* ── Daily nudge (3rd journey) ── */}
+              {dailyCount >= 3 && (
+                <div
+                  style={{
+                    textAlign: "center",
+                    marginBottom: "20px",
+                    padding: "12px 16px",
+                    background: "#fefce8",
+                    border: "1px solid #fde68a",
+                    borderRadius: "8px",
+                    maxWidth: "420px",
+                    margin: "0 auto 20px auto",
+                  }}
+                >
+                  <p style={{ fontSize: "12px", color: "#92400e", margin: "0 0 4px 0", fontWeight: 500 }}>
+                    Lo udah {dailyCount} kali ngobrol hari ini.
+                  </p>
+                  <p style={{ fontSize: "11px", color: "#a16207", margin: "0" }}>
+                    Kadang halu paling rapi adalah merasa sudah berubah karena sudah
+                    memahami diri sendiri. Insight yang gak dibawa hidup bisa jadi
+                    tontonan juga.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* ── Entry types (hidden when daily limit reached) ── */}
+          {!isDailyLimitReached() && (
+            <>
           {entry.type === "direct-input" && (
             <>
               {entry.presets && entry.presets.length > 0 && (
@@ -1225,109 +1322,87 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                 ))}
               </div>
 
-              {/* ── Cukup dulu nudge ── */}
-              {sessionCount >= 3 && (
-                <div
-                  style={{
-                    textAlign: "center",
-                    marginTop: "20px",
-                    padding: "12px 16px",
-                    background: "#fefce8",
-                    border: "1px solid #fde68a",
-                    borderRadius: "8px",
-                    maxWidth: "420px",
-                    margin: "20px auto 0 auto",
-                  }}
-                >
-                  <p style={{ fontSize: "12px", color: "#92400e", margin: "0 0 4px 0", fontWeight: 500 }}>
-                    Lo udah {sessionCount} kali ngobrol hari ini.
-                  </p>
-                  <p style={{ fontSize: "11px", color: "#a16207", margin: "0" }}>
-                    Kadang halu paling rapi adalah merasa sudah berubah karena sudah memahami diri sendiri.
-                    Insight yang gak dibawa hidup bisa jadi tontonan juga.
-                  </p>
-                </div>
-              )}
-
-              {/* ── History hint ── */}
-              {history.length > 0 && (
-                <div style={{ textAlign: "center", marginTop: "20px" }}>
+              <div style={{ textAlign: "center", marginTop: "32px" }}>
                   <button
-                    onClick={() => setShowHistory(!showHistory)}
+                    onClick={handleStart}
+                    disabled={!entryValue || isLoading}
                     style={{
-                      background: "none",
+                      padding: "16px 32px",
+                      fontSize: "18px",
+                      fontWeight: 600,
+                      borderRadius: "8px",
                       border: "none",
-                      color: "#9ca3af",
-                      fontSize: "12px",
-                      cursor: "pointer",
-                      padding: "4px 8px",
+                      cursor: entryValue ? "pointer" : "not-allowed",
+                      background: entryValue ? accentGradient : "#d1d5db",
+                      color: entryValue ? "white" : "#6b7280",
+                      boxShadow: entryValue
+                        ? "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
+                        : "none",
+                      transition: "all 0.2s",
+                    }}
+                    onMouseOver={(e) => {
+                      if (entryValue) {
+                        e.currentTarget.style.transform = "scale(1.02)";
+                      }
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
                     }}
                   >
-                    📝 Lo udah {history.length} kali ngobrol —{" "}
-                    {showHistory ? "sembunyiin" : "liat riwayat"} ▼
+                    {isLoading ? "🌀" : "Start Quest!"}
                   </button>
-                  {showHistory && (
-                    <div
-                      style={{
-                        marginTop: "8px",
-                        maxWidth: "500px",
-                        margin: "8px auto 0 auto",
-                      }}
-                    >
-                      <HistorySection
-                        history={history}
-                        expandedId={expandedJourneyId}
-                        onToggle={(id) =>
-                          setExpandedJourneyId(
-                            expandedJourneyId === id ? null : id,
-                          )
-                        }
-                        onDelete={(id) => {
-                          deleteJourney(id);
-                          setHistory((prev) =>
-                            prev.filter((j) => j.id !== id),
-                          );
-                          if (expandedJourneyId === id)
-                            setExpandedJourneyId(null);
-                        }}
-                        onRefresh={() => setHistory(loadHistory())}
-                      />
-                    </div>
-                  )}
                 </div>
-              )}
+            </>
+          )}
+            </>
+          )}
 
-              <div style={{ textAlign: "center", marginTop: "32px" }}>
-                <button
-                  onClick={handleStart}
-                  disabled={!entryValue || isLoading}
+          {/* ── History hint (always visible) ── */}
+          {history.length > 0 && (
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+              <button
+                onClick={() => setShowHistory(!showHistory)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#9ca3af",
+                  fontSize: "12px",
+                  cursor: "pointer",
+                  padding: "4px 8px",
+                }}
+              >
+                📝 Lo udah {history.length} kali ngobrol —{" "}
+                {showHistory ? "sembunyiin" : "liat riwayat"} ▼
+              </button>
+              {showHistory && (
+                <div
                   style={{
-                    padding: "16px 32px",
-                    fontSize: "18px",
-                    fontWeight: 600,
-                    borderRadius: "8px",
-                    border: "none",
-                    cursor: entryValue ? "pointer" : "not-allowed",
-                    background: entryValue ? accentGradient : "#d1d5db",
-                    color: entryValue ? "white" : "#6b7280",
-                    boxShadow: entryValue
-                      ? "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
-                      : "none",
-                    transition: "all 0.2s",
-                  }}
-                  onMouseOver={(e) => {
-                    if (entryValue) {
-                      e.currentTarget.style.transform = "scale(1.02)";
-                    }
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
+                    marginTop: "8px",
+                    maxWidth: "500px",
+                    margin: "8px auto 0 auto",
                   }}
                 >
-                  {isLoading ? "🌀" : "Start Quest!"}
-                </button>
-              </div>
-            </>
+                  <HistorySection
+                    history={history}
+                    expandedId={expandedJourneyId}
+                    onToggle={(id) =>
+                      setExpandedJourneyId(
+                        expandedJourneyId === id ? null : id,
+                      )
+                    }
+                    onDelete={(id) => {
+                      deleteJourney(id);
+                      setHistory((prev) =>
+                        prev.filter((j) => j.id !== id),
+                      );
+                      if (expandedJourneyId === id)
+                        setExpandedJourneyId(null);
+                    }}
+                    onRefresh={() => setHistory(loadHistory())}
+                  />
+                </div>
+              )}
+            </div>
           )}
         </>
       )}
@@ -1592,44 +1667,27 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                   </div>
                 )}
 
-                {analysisError && !isAnalyzing && !journeyAnalysis && (
+                {analysisPartial && !isAnalyzing && !journeyAnalysis && (
                   <div
                     style={{
                       marginBottom: "24px",
                       padding: "20px",
-                      background: "#fef2f2",
-                      border: "1px solid #fecaca",
+                      background: "#fffbeb",
+                      border: "1px solid #fde68a",
                       borderRadius: "8px",
                       textAlign: "center",
                     }}
                   >
                     <p
                       style={{
-                        color: "#dc2626",
+                        color: "#92400e",
                         fontSize: "13px",
                         fontWeight: 500,
-                        margin: "0 0 8px 0",
+                        margin: "0",
                       }}
                     >
-                      Gagal ambil insight. Coba refresh halaman?
+                      Insight belum kebaca penuh, tapi perjalanan lo aman disimpan.
                     </p>
-                    <button
-                      onClick={() => {
-                        setAnalysisError(false);
-                        runJourneyAnalysis();
-                      }}
-                      style={{
-                        padding: "6px 14px",
-                        border: "1px solid #fca5a5",
-                        background: "white",
-                        color: "#dc2626",
-                        borderRadius: "6px",
-                        cursor: "pointer",
-                        fontSize: "12px",
-                      }}
-                    >
-                      Coba lagi
-                    </button>
                   </div>
                 )}
 

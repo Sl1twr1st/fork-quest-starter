@@ -35,29 +35,99 @@ export async function POST(request: Request) {
     const textContent =
       message.content.find((block) => block.type === "text")?.text ?? "";
 
-    const jsonMatch =
-      textContent.match(/```(?:json)?\s*([\s\S]*?)```/) ??
-      textContent.match(/(\{[\s\S]*\})/);
+    // Defensive JSON extraction — strip code fences, find first JSON object,
+    // handle truncated responses gracefully.
+    let jsonStr = "";
+    const fenceMatch = textContent.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (fenceMatch) {
+      jsonStr = fenceMatch[1].trim();
+    } else {
+      const objMatch = textContent.match(/(\{[\s\S]*\})/);
+      if (objMatch) jsonStr = objMatch[1].trim();
+    }
 
-    if (!jsonMatch) {
+    // Fallback: try to extract partial JSON if no complete object found
+    if (!jsonStr) {
+      // Check if there's at least a partial JSON starting with {
+      const partial = textContent.match(/(\{[\s\S]*)/);
+      if (partial) jsonStr = partial[1].trim();
+    }
+
+    // Try to close truncated JSON by counting braces
+    if (jsonStr && !jsonStr.endsWith("}")) {
+      let openBraces = 0;
+      for (const ch of jsonStr) {
+        if (ch === "{") openBraces++;
+        if (ch === "}") openBraces--;
+      }
+      // Close unclosed braces
+      while (openBraces > 0) {
+        jsonStr += "}";
+        openBraces--;
+      }
+      // Close unclosed strings
+      const inString =
+        (jsonStr.match(/(?<!\\)"/g) || []).length % 2 !== 0;
+      if (inString) jsonStr += '"';
+    }
+
+    let patterns: string[] = [];
+    let emotionalCore = "";
+    let reflection = "";
+    let missedQuestions: string[] = [];
+    let smallStep24h = "";
+
+    if (jsonStr) {
+      try {
+        const parsed = JSON.parse(jsonStr);
+        patterns = parsed.patterns ?? [];
+        emotionalCore = parsed.emotionalCore ?? "";
+        reflection = parsed.reflection ?? "";
+        missedQuestions = parsed.missedQuestions ?? [];
+        smallStep24h = parsed.smallStep24h ?? "";
+      } catch (parseErr) {
+        // Partial extraction: try to salvage individual fields with regex
+        console.warn(
+          "JSON parse failed, attempting partial extraction:",
+          parseErr,
+        );
+        const extract = (key: string): string => {
+          const m = jsonStr.match(
+            new RegExp(`"${key}"\\s*:\\s*"((?:[^"\\\\]|\\\\.)*)"`, "s"),
+          );
+          return m ? m[1].replace(/\\"/g, '"').replace(/\\n/g, "\n") : "";
+        };
+        const extractArr = (key: string): string[] => {
+          const m = jsonStr.match(
+            new RegExp(`"${key}"\\s*:\\s*\\[([\\s\\S]*?)\\]`, "s"),
+          );
+          if (!m) return [];
+          const items = m[1].match(/"((?:[^"\\\\]|\\\\.)*)"/g);
+          return (items ?? []).map((s) =>
+            s.slice(1, -1).replace(/\\"/g, '"').replace(/\\n/g, "\n"),
+          );
+        };
+        patterns = extractArr("patterns");
+        emotionalCore = extract("emotionalCore");
+        reflection = extract("reflection");
+        missedQuestions = extractArr("missedQuestions");
+        smallStep24h = extract("smallStep24h");
+      }
+    } else {
       console.error(
-        "Failed to parse JSON from Claude analysis:",
-        textContent,
-      );
-      return NextResponse.json(
-        { error: "Invalid response format", raw: textContent },
-        { status: 500 },
+        "No JSON content found in Claude analysis response:",
+        textContent.slice(0, 200),
       );
     }
 
-    const parsed = JSON.parse(jsonMatch[1]);
-
+    // Return whatever we salvaged — never fail completely
     return NextResponse.json({
-      patterns: parsed.patterns ?? [],
-      emotionalCore: parsed.emotionalCore ?? "",
-      reflection: parsed.reflection ?? "",
-      missedQuestions: parsed.missedQuestions ?? [],
-      smallStep24h: parsed.smallStep24h ?? "",
+      patterns,
+      emotionalCore,
+      reflection,
+      missedQuestions,
+      smallStep24h,
+      partial: !textContent.includes("smallStep24h"), // signal if response was truncated
     });
   } catch (error) {
     console.error("analyze-journey error:", error);

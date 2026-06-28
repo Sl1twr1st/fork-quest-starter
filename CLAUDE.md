@@ -118,6 +118,13 @@ Persona AI adalah "Kawan Bertanya" — teman yang cukup peduli untuk bertanya ha
 - Gunakan bahasa tentative: "kayaknya", "mungkin", "jangan-jangan", "coba perhatiin"
 - Bukan terapi, bukan diagnosis, bukan janji transformasi instan
 
+### Reflection guardrails (engine — `src/components/ForkQuestEngine.tsx`)
+- **Daily limit**: max 4 completed journeys/hari. Counter: localStorage `kawan-anti-halu-daily-count`.
+- **Nudge on 3rd**: "Kadang halu paling rapi adalah merasa sudah berubah..."
+- **Strong stop after 4th**: "Cukup dulu hari ini." Entry page diblokir.
+- **Failure safe**: AI boleh gagal. Journey tetap disimpan ke history. UI fallback: "Insight belum kebaca penuh, tapi perjalanan lo aman disimpan."
+- **Completion actions**: "Ngetes narasi lain" + "Cukup dulu" (bukan cuma "Mulai dari awal")
+
 ## Pola "Edisi Investasi" (Kawan Anti Halu)
 
 Edisi Investasi (Berkshire Quest) fokus ke **agency**, bukan return:
