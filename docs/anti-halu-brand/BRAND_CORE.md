@@ -88,6 +88,19 @@ Guardrail yang diterapkan:
 - **History pattern callout**: tunjukin pola berulang, bukan cuma koleksi insight.
 - **"Cukup dulu" mode**: tombol untuk berhenti, bukan cuma "Lagi".
 
+## Product Ethics
+
+> **Anti Halu bukan cuma ngetes narasi user.**
+> **Anti Halu juga ngetes narasi produk sendiri:**
+> **"lebih banyak engagement = lebih baik"**
+
+Dan dia jawab: belum tentu.
+
+4 journey bukan paywall. 4 journey adalah rem moral.
+AI boleh gagal, perjalanan user gak boleh hilang.
+Insight setengah matang lebih buruk daripada jujur "belum kebaca penuh."
+Trust lebih penting dari selalu tampil pintar.
+
 ## What Anti Halu Is NOT
 
 - Bukan financial advice

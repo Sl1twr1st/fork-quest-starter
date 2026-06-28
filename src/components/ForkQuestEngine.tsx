@@ -838,11 +838,19 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
 
       if (res.ok) {
         const data = await res.json();
+        // Quality gate for partial analysis: don't show if key fields are empty/garbled
+        const hasQuality =
+          data.emotionalCore && data.emotionalCore.length > 10 &&
+          data.reflection && data.reflection.length > 20;
         analysis = data;
-        setJourneyAnalysis(analysis);
-        // If response was marked partial, show soft fallback
-        if (data.partial) {
+        if (data.partial && !hasQuality) {
+          // Partial analysis with poor quality — don't display, show fallback
           setAnalysisPartial(true);
+        } else {
+          setJourneyAnalysis(analysis);
+          if (data.partial) {
+            setAnalysisPartial(true);
+          }
         }
       } else {
         console.error(
@@ -1667,12 +1675,12 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                   </div>
                 )}
 
-                {analysisPartial && !isAnalyzing && !journeyAnalysis && (
+                {analysisPartial && !isAnalyzing && (
                   <div
                     style={{
-                      marginBottom: "24px",
-                      padding: "20px",
-                      background: "#fffbeb",
+                      marginBottom: journeyAnalysis ? "16px" : "24px",
+                      padding: journeyAnalysis ? "10px 16px" : "20px",
+                      background: journeyAnalysis ? "#fefce8" : "#fffbeb",
                       border: "1px solid #fde68a",
                       borderRadius: "8px",
                       textAlign: "center",
@@ -1681,12 +1689,14 @@ function ForkQuest({ config }: { config: ForkQuestConfig }) {
                     <p
                       style={{
                         color: "#92400e",
-                        fontSize: "13px",
+                        fontSize: journeyAnalysis ? "11px" : "13px",
                         fontWeight: 500,
                         margin: "0",
                       }}
                     >
-                      Insight belum kebaca penuh, tapi perjalanan lo aman disimpan.
+                      {journeyAnalysis
+                        ? "Beberapa insight mungkin belum lengkap, tapi intinya udah ketangkep."
+                        : "Insight belum kebaca penuh, tapi perjalanan lo aman disimpan."}
                     </p>
                   </div>
                 )}
