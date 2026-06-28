@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function NotFound() {
   return (
     <div
@@ -15,7 +17,7 @@ export default function NotFound() {
       <p style={{ fontSize: "1.2rem", opacity: 0.7 }}>
         Halaman ini nggak ada. Mungkin lo nyasar.
       </p>
-      <a
+      <Link
         href="/"
         style={{
           marginTop: "2rem",
@@ -24,7 +26,7 @@ export default function NotFound() {
         }}
       >
         ← Balik ke beranda
-      </a>
+      </Link>
     </div>
   );
 }
