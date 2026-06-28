@@ -2,394 +2,291 @@
 
 export default function ForkQuestHomepage() {
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #dbeafe 0%, #fdf4ff 50%, #fed7aa 100%)',
-      padding: '48px 24px'
-    }}>
-      <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
-        
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-          <h1 style={{
-            fontSize: '64px',
-            fontWeight: 'bold',
-            marginBottom: '24px',
-            background: 'linear-gradient(135deg, #7c3aed 0%, #3b82f6 50%, #ec4899 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
-          }}>
-            🍴 ParAIkitri< br/>Fork Quest Collection< br/>
-            (......) Sebagai Percakapan
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(180deg, #fafafa 0%, #f5f3ff 100%)",
+        padding: "0 24px",
+      }}
+    >
+      <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+
+        {/* ── Hero ── */}
+        <div style={{ textAlign: "center", padding: "80px 0 48px 0" }}>
+          <p
+            style={{
+              fontSize: "13px",
+              fontWeight: 500,
+              color: "#6366f1",
+              letterSpacing: "1px",
+              textTransform: "uppercase",
+              margin: "0 0 16px 0",
+            }}
+          >
+            Kawan Bertanya
+          </p>
+          <h1
+            style={{
+              fontSize: "36px",
+              fontWeight: 700,
+              color: "#1f2937",
+              lineHeight: "1.35",
+              margin: "0 0 16px 0",
+              letterSpacing: "-0.5px",
+            }}
+          >
+            Pilih satu hal yang lo hindari.
+            <br />
+            Jawab 5 pertanyaan.
+            <br />
+            Lihat motif yang selama ini lo bela.
           </h1>
-          <p style={{
-            fontSize: '20px',
-            color: '#6b7280',
-            maxWidth: '700px',
-            margin: '0 auto',
-            lineHeight: '1.6'
-          }}>
-            Bertanya Ulang,< br/>Berfikir Ulang,< br/>Kontemplasi Ulang.< br/>-----< br/>Interactive journeys yang ngajak orang &ldquo;menyadari ulang&rdquo; tentang diri mereka dan dunia melalui pertanyaan-pertanyaan yang progressively deeper.
+          <p
+            style={{
+              fontSize: "16px",
+              color: "#6b7280",
+              lineHeight: "1.6",
+              maxWidth: "480px",
+              margin: "0 auto 40px auto",
+            }}
+          >
+            Bukan terapi. Bukan nasihat. Teman yang cukup peduli buat nanya
+            hal-hal yang orang lain hindari — dalam bahasa lo sendiri.
           </p>
         </div>
 
-        {/* Quest Cards */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '24px',
-          marginBottom: '64px',
-          maxWidth: '900px',
-          margin: '0 auto 64px auto'
-        }}>
-
-          {/* Rebahan Quest */}
-          <div 
+        {/* ── 2 Flagship ── */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "20px",
+            marginBottom: "48px",
+          }}
+        >
+          {/* Galau */}
+          <div
+            onClick={() => (window.location.href = "/galau-quest")}
             style={{
-              background: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)',
-              borderRadius: '16px',
-              padding: '28px',
-              border: '2px solid #f59e0b',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+              background: "white",
+              borderRadius: "12px",
+              padding: "28px 24px",
+              border: "1px solid #e5e7eb",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
             }}
-            onClick={() => window.location.href = '/rebahan-quest'}
-          >
-            <div style={{ fontSize: '44px', marginBottom: '14px' }}>😴🛏️</div>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#92400e',
-              marginBottom: '14px'
-            }}>
-              Rebahan Sebagai Percakapan
-            </h3>
-            <p style={{
-              color: '#374151',
-              marginBottom: '20px',
-              lineHeight: '1.6',
-              fontSize: '15px'
-            }}>
-              Ngobrol santai tapi bisa nyadar pelan-pelan. 5 pertanyaan simpel yang bikin lo refleksi sambil rebahan. 
-              Versi yang lebih approachable dari quest lainnya.
-            </p>
-            <div style={{
-              background: '#92400e',
-              color: 'white',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              textAlign: 'center',
-              fontWeight: '600',
-              fontSize: '14px'
-            }}>
-              Start Rebahan Quest →
-            </div>
-          </div>
-          
-          {/* Galau Fork Quest */}
-          <div 
-            style={{
-              background: 'linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%)',
-              borderRadius: '16px',
-              padding: '28px',
-              border: '2px solid #a855f7',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+            onMouseOver={(e) => {
+              e.currentTarget.style.borderColor = "#6366f1";
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(99,102,241,0.1)";
             }}
-            onClick={() => window.location.href = '/galau-quest'}
+            onMouseOut={(e) => {
+              e.currentTarget.style.borderColor = "#e5e7eb";
+              e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
+            }}
           >
-            <div style={{ fontSize: '44px', marginBottom: '14px' }}>😵‍💫</div>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#7c3aed',
-              marginBottom: '14px'
-            }}>
-              Galau Sebagai Percakapan
+            <p style={{ fontSize: "28px", margin: "0 0 12px 0" }}>🪞</p>
+            <h3
+              style={{
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "#1f2937",
+                margin: "0 0 6px 0",
+              }}
+            >
+              Edisi Galau
             </h3>
-            <p style={{
-              color: '#374151',
-              marginBottom: '20px',
-              lineHeight: '1.6',
-              fontSize: '15px'
-            }}>
-              Journey 5 levels deep dari keluhan sehari-hari sampai final boss consciousness. 
-              Bikin orang sadar versi diri mereka yang lain.
+            <p
+              style={{
+                fontSize: "13px",
+                color: "#6b7280",
+                lineHeight: "1.5",
+                margin: "0 0 16px 0",
+              }}
+            >
+              Masukin satu rasa yang lagi ganggu — capek, takut gagal, bingung.
+              Kita urai pelan-pelan lewat 5 pertanyaan.
             </p>
-            <div style={{
-              background: '#7c3aed',
-              color: 'white',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              textAlign: 'center',
-              fontWeight: '600',
-              fontSize: '14px'
-            }}>
-              Start Galau Quest →
-            </div>
+            <span style={{ fontSize: "13px", fontWeight: 600, color: "#6366f1" }}>
+              Mulai →
+            </span>
           </div>
 
-          {/* Indonesia Sebagai Percakapan Quest */}
-          <div 
+          {/* Investasi */}
+          <div
+            onClick={() => (window.location.href = "/berkshire-quest")}
             style={{
-              background: 'linear-gradient(135deg, #dbeafe 0%, #fecaca 100%)',
-              borderRadius: '16px',
-              padding: '28px',
-              border: '2px solid #3b82f6',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+              background: "white",
+              borderRadius: "12px",
+              padding: "28px 24px",
+              border: "1px solid #e5e7eb",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
             }}
-            onClick={() => window.location.href = '/indonesia-quest'}
-          >
-            <div style={{ fontSize: '44px', marginBottom: '14px' }}>🇮🇩</div>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#2563eb',
-              marginBottom: '14px'
-            }}>
-              Indonesia Sebagai Percakapan
-            </h3>
-            <p style={{
-              color: '#374151',
-              marginBottom: '20px',
-              lineHeight: '1.6',
-              fontSize: '15px'
-            }}>
-              Journey dari pertanyaan surface tentang Indonesia sampai final boss consciousness kebangsaan.
-              Dari &ldquo;Apakah lo masih cinta bangsa ini?&rdquo; sampai &ldquo;Siapa Indonesia tanpa cerita heroik?&rdquo;
-            </p>
-            <div style={{
-              background: '#2563eb',
-              color: 'white',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              textAlign: 'center',
-              fontWeight: '600',
-              fontSize: '14px'
-            }}>
-              Start Indonesia Quest →
-            </div>
-          </div>
-
-          {/* Berkshire Quest */}
-          <div 
-            style={{
-              background: 'linear-gradient(135deg, #d1fae5 0%, #fef3c7 100%)',
-              borderRadius: '16px',
-              padding: '28px',
-              border: '2px solid #10b981',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+            onMouseOver={(e) => {
+              e.currentTarget.style.borderColor = "#6366f1";
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(99,102,241,0.1)";
             }}
-            onClick={() => window.location.href = '/berkshire-quest'}
-          >
-            <div style={{ fontSize: '44px', marginBottom: '14px' }}>🏗️</div>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#059669',
-              marginBottom: '14px'
-            }}>
-              Investasi Sebagai Percakapan
-            </h3>
-            <p style={{
-              color: '#374151',
-              marginBottom: '20px',
-              lineHeight: '1.6',
-              fontSize: '15px'
-            }}>
-              Interaktif yang ngajak investor menyadari ulang makna nilai, akumulasi, dan warisan kapitalisme.
-              Dari &ldquo;Kenapa harga naik = lo makin pintar?&rdquo; sampai &ldquo;Siapa lo tanpa portfolio?&rdquo;
-            </p>
-            <div style={{
-              background: '#059669',
-              color: 'white',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              textAlign: 'center',
-              fontWeight: '600',
-              fontSize: '14px'
-            }}>
-              Start Berkshire Quest →
-            </div>
-          </div>
-
-          {/* Literasi Quest */}
-          <div 
-            style={{
-              background: 'linear-gradient(135deg, #fed7aa 0%, #fecaca 100%)',
-              borderRadius: '16px',
-              padding: '28px',
-              border: '2px solid #ea580c',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+            onMouseOut={(e) => {
+              e.currentTarget.style.borderColor = "#e5e7eb";
+              e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
             }}
-            onClick={() => window.location.href = '/literasi-quest'}
           >
-            <div style={{ fontSize: '44px', marginBottom: '14px' }}>📚</div>
-            <h3 style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: '#7c2d12',
-              marginBottom: '14px'
-            }}>
-              Literasi Sebagai Percakapan
+            <p style={{ fontSize: "28px", margin: "0 0 12px 0" }}>💸</p>
+            <h3
+              style={{
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "#1f2937",
+                margin: "0 0 6px 0",
+              }}
+            >
+              Edisi Investasi
             </h3>
-            <p style={{
-              color: '#374151',
-              marginBottom: '20px',
-              lineHeight: '1.6',
-              fontSize: '15px'
-            }}>
-              Journey dari surface reading sampai beyond the page consciousness.
-              Dari &ldquo;Kenapa lo percaya orang yang baca banyak buku itu otomatis pintar?&rdquo; sampai &ldquo;Siapa lo tanpa rak buku lo?&rdquo;
+            <p
+              style={{
+                fontSize: "13px",
+                color: "#6b7280",
+                lineHeight: "1.5",
+                margin: "0 0 16px 0",
+              }}
+            >
+              Investasi bukan cuma soal return — tapi cara lo bernegosiasi dengan
+              takut, status, dan tanggung jawab.
             </p>
-            <div style={{
-              background: '#7c2d12',
-              color: 'white',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              textAlign: 'center',
-              fontWeight: '600',
-              fontSize: '14px'
-            }}>
-              Start Literasi Quest →
-            </div>
+            <span style={{ fontSize: "13px", fontWeight: 600, color: "#6366f1" }}>
+              Mulai →
+            </span>
           </div>
         </div>
 
-        
-        
-
-        {/* Features */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '24px',
-          marginBottom: '64px'
-        }}>
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.8)',
-            borderRadius: '12px',
-            padding: '24px',
-            textAlign: 'center'
-          }}>
-            <div style={{ fontSize: '32px', marginBottom: '12px' }}>🌀</div>
-            <h4 style={{ fontWeight: 'bold', marginBottom: '8px' }}>Fork Logic</h4>
-            <p style={{ fontSize: '14px', color: '#6b7280' }}>
-              Setiap pertanyaan bisa di-fork jadi multiple kemungkinan awareness
-            </p>
-          </div>
-
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.8)',
-            borderRadius: '12px',
-            padding: '24px',
-            textAlign: 'center'
-          }}>
-            <div style={{ fontSize: '32px', marginBottom: '12px' }}>📱</div>
-            <h4 style={{ fontWeight: 'bold', marginBottom: '8px' }}>Viral Ready</h4>
-            <p style={{ fontSize: '14px', color: '#6b7280' }}>
-              Built-in sharing mechanism untuk social media virality
-            </p>
-          </div>
-
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.8)',
-            borderRadius: '12px',
-            padding: '24px',
-            textAlign: 'center'
-          }}>
-            <div style={{ fontSize: '32px', marginBottom: '12px' }}>🎯</div>
-            <h4 style={{ fontWeight: 'bold', marginBottom: '8px' }}>5 Levels Deep</h4>
-            <p style={{ fontSize: '14px', color: '#6b7280' }}>
-              Progressive deepening dari surface sampai final boss consciousness
-            </p>
-          </div>
+        {/* ── How it works ── */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "16px",
+            marginBottom: "48px",
+          }}
+        >
+          {[
+            { num: "1", label: "Pilih tema", desc: "Satu hal yang lagi lo hindari atau gak berani lo tanyain ke diri sendiri." },
+            { num: "2", label: "Jawab 5 level", desc: "Pertanyaan makin dalem — dari surface sampai lo ketemu suara sendiri." },
+            { num: "3", label: "Lihat motif lo", desc: "Bukan kesimpulan. Cermin yang susah lo bohongi." },
+          ].map((step) => (
+            <div key={step.num} style={{ textAlign: "center" }}>
+              <div
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  background: "#6366f1",
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 auto 10px auto",
+                }}
+              >
+                {step.num}
+              </div>
+              <p
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#1f2937",
+                  margin: "0 0 4px 0",
+                }}
+              >
+                {step.label}
+              </p>
+              <p
+                style={{
+                  fontSize: "12px",
+                  color: "#9ca3af",
+                  lineHeight: "1.5",
+                  margin: "0",
+                }}
+              >
+                {step.desc}
+              </p>
+            </div>
+          ))}
         </div>
 
-        {/* Footer */}
-        <div style={{
-          background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
-          borderRadius: '16px',
-          padding: '32px',
-          textAlign: 'center',
-          color: 'white'
-        }}>
-          <p style={{
-            fontSize: '14px',
-            color: '#cbd5e1',
-            marginBottom: '20px'
-          }}>
-            Metode fork pertanyaan ini digunakan Swarm Par<span style={{ fontWeight: 'bold', color: '#60a5fa' }}>AI</span>kitri untuk< br/>
-            membangun <span style={{ fontWeight: 'bold', color: '#fbbf24' }}>ParAIkitri V.001, V.0015, V.002 & BETA TEST v.01</span>.
+        {/* ── Eksplorasi lain ── */}
+        <div
+          style={{
+            borderTop: "1px solid #e5e7eb",
+            paddingTop: "32px",
+            marginBottom: "48px",
+            textAlign: "center",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "12px",
+              fontWeight: 500,
+              color: "#9ca3af",
+              margin: "0 0 16px 0",
+              textTransform: "uppercase",
+              letterSpacing: "1px",
+            }}
+          >
+            Eksplorasi lain
           </p>
-          
-          <div style={{
-            display: 'flex',
-            gap: '12px',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            marginBottom: '16px'
-          }}>
-            <button
-              onClick={() => window.open('https://indonesiasebagaipercakapan.katabaru.com/fork-sebagai-konsep/', '_blank')}
-              style={{
-                padding: '12px 24px',
-                background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                color: '#1f2937',
-                border: 'none',
-                borderRadius: '8px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-            >
-              🍴 Konsep Fork
-            </button>
-            
-            <button
-              onClick={() => window.open('https://indonesiasebagaipercakapan.katabaru.com/pertanyaan/', '_blank')}
-              style={{
-                padding: '12px 24px',
-                background: 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-            >
-              🎯 Buat Pertanyaan Baru
-            </button>
-
-            <button
-              onClick={() => window.open('https://indonesiasebagaipercakapan.katabaru.com/konsep-swarm/', '_blank')}
-              style={{
-                padding: '12px 24px',
-                background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                color: '#1f2937',
-                border: 'none',
-                borderRadius: '8px',
-                fontWeight: '600',
-                cursor: 'pointer'
-              }}
-            >
-              🐝 Konsep Swarm
-            </button>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+            {[
+              { label: "Rebahan", href: "/rebahan-quest", desc: "Ngobrol santai sambil refleksi" },
+              { label: "Indonesia", href: "/indonesia-quest", desc: "Pertanyaan tentang bangsa" },
+              { label: "Literasi", href: "/literasi-quest", desc: "Apa yang lo sebut 'baca'" },
+            ].map((q) => (
+              <div
+                key={q.href}
+                onClick={() => (window.location.href = q.href)}
+                style={{
+                  padding: "10px 18px",
+                  background: "white",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontSize: "12px",
+                  color: "#6b7280",
+                  transition: "all 0.15s",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.borderColor = "#6366f1";
+                  e.currentTarget.style.color = "#6366f1";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.borderColor = "#e5e7eb";
+                  e.currentTarget.style.color = "#6b7280";
+                }}
+              >
+                <span style={{ fontWeight: 500 }}>{q.label}</span>
+                <span style={{ marginLeft: "6px", color: "#d1d5db" }}>—</span>
+                <span style={{ marginLeft: "6px" }}>{q.desc}</span>
+              </div>
+            ))}
           </div>
-          
-          <p style={{
-            fontSize: '12px',
-            color: '#34a3b8',
-            margin: '0'
-          }}>
-            &ldquo;Satu menjadi banyak, untuk selalu mengingat satu&rdquo; 🌀
+        </div>
+
+        {/* ── Footer ── */}
+        <div
+          style={{
+            textAlign: "center",
+            padding: "32px 0 48px 0",
+            borderTop: "1px solid #e5e7eb",
+          }}
+        >
+          <p style={{ fontSize: "13px", color: "#9ca3af", margin: "0 0 8px 0" }}>
+            Kawan Bertanya — format interogasi reflektif bercabang.
+          </p>
+          <p style={{ fontSize: "12px", color: "#d1d5db", margin: "0" }}>
+            Bukan terapi. Bukan nasihat. Cermin yang susah dibohongi.
           </p>
         </div>
       </div>
